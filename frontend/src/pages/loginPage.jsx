@@ -2,6 +2,7 @@ import LoginForm from "../components/LoginForm";
 import TrailNavbar from "../components/NavBar";
 import RegisterForm from "../components/RegisterForm";
 import { useState } from "react";
+import styles from "../css/LoginPage.module.css";
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -9,13 +10,13 @@ export default function LoginPage() {
   return (
     <>
       <TrailNavbar />
-      {isLogin ? (
-        <LoginForm onSwitchToSignup={() => setIsLogin(false)} />
-      ) : (
-        <RegisterForm onSwitchToLogin={() => setIsLogin(true)} />
-      )}
-
-      <RegisterForm />
+      <div className={styles.container}>
+        {isLogin ? (
+          <LoginForm onSignupSelection={() => setIsLogin(false)} />
+        ) : (
+          <RegisterForm onLoginSelection={() => setIsLogin(true)} />
+        )}
+      </div>
     </>
   );
 }

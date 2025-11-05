@@ -1,6 +1,6 @@
 import express from "express";
 import bcrypt from "bcrypt";
-import { getDB } from "../db/connection";
+import { getDB } from "../db/connection.js";
 
 const router = express.Router();
 
@@ -26,7 +26,7 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ error: "Incorrect password" });
     }
     console.log("Successfully logged in");
-    req.app.locals.loggedInUser = user.username;
+    req.session.username = user.username;
     res.json({
       success: true,
       username: user.username,
@@ -66,12 +66,12 @@ router.post("/signup", async (req, res) => {
 
     await usersCollection.insertOne(user);
     console.log("User created successfully");
+    req.session.username = user.username;
     res.json({
       success: true,
       message: "User created successfully",
       username: user.username,
     });
-    req.app.locals.loggedInUser = user.username;
   } catch (error) {
     console.error("Failed to create user:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -79,7 +79,7 @@ router.post("/signup", async (req, res) => {
 });
 
 router.get("/current_user", (req, res) => {
-  const username = req.app.locals.loggedInUser;
+  const username = req.session.username;
 
   if (username) {
     res.json({ username });
@@ -89,13 +89,23 @@ router.get("/current_user", (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
-  req.app.locals.loggedInUser = null;
-  res.json({ success: true });
+  req.session.destroy((error) => {
+    if (error) {
+      return res.status(500).json({
+        success: false,
+        message: "Logout failed",
+      });
+    }
+    res.json({
+      success: true,
+      message: "successfully logged out",
+    });
+  });
 });
 
 router.put("/update-profile", async (req, res) => {
   try {
-    const currentName = req.app.locals.loggedInUser;
+    const currentName = req.session.username;
     console.log("currentName", currentName);
     if (!currentName) {
       return res.status(401).json({ error: "User not logged in" });
@@ -127,7 +137,7 @@ router.put("/update-profile", async (req, res) => {
         return res.status(400).json({ error: "Username already exists" });
       } else {
         currentUser.username = username;
-        req.app.locals.loggedInUser = username;
+        req.session.username = username;
       }
     }
 
@@ -149,7 +159,7 @@ router.put("/update-profile", async (req, res) => {
 });
 
 router.delete("/delete-profile", async (req, res) => {
-  const currentName = req.app.locals.loggedInUser;
+  const currentName = req.session.username;
   if (!currentName) {
     return res.status(401).json({ error: "User not logged in" });
   }
@@ -157,8 +167,15 @@ router.delete("/delete-profile", async (req, res) => {
     const db = getDB();
     const usersCollection = db.collection("users");
     await usersCollection.deleteOne({ username: currentName });
-    req.app.locals.loggedInUser = null;
-    res.json({ success: true });
+    req.session.destroy((error) => {
+      if (error) {
+        return res.status(500).json({ error: "Delete user failed" });
+      }
+      res.json({
+        success: true,
+        message: "Profile deleted successfully",
+      });
+    });
   } catch (error) {
     console.error("Error deleting user:", error);
     res.status(500).json({ error: "Internal Server Error" });
