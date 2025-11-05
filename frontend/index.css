@@ -14,12 +14,20 @@
 
 .map img {
     z-index: auto;
+    
 }
 
 svg path {
     z-index: 1;
 }
 
+.map .photos {
+    position:absolute;
+    z-index: 1;
+    height: 200px;
+    width: auto;
+    border: 2px solid grey;
+}
 
 svg .Dot {
     r:4.5;
@@ -28,4 +36,8 @@ svg .Dot {
     transform: translate(-36px,-20px);
     z-index: 2;
 
+}
+
+.map svg foreignObject {
+    overflow: visible;
 }
