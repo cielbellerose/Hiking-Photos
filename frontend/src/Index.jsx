@@ -7,6 +7,7 @@ import NewPostsPage from "./pages/NewPostsPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import TrailEditPage from "./pages/TrailEditPage.jsx";
 import PresentationPage from "./pages/PresentationPage.jsx";
+import "../index.css";
 const root = document.getElementById("root");
 
 //Adding a react DOM to handle routing

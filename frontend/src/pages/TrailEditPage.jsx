@@ -7,8 +7,10 @@ export default function TrailEditPage() {
     <>
       <TrailNavbar />
       <h1>Trail Edit Page</h1>
-      <AddPostModal />
-      <UploadPhotostModal />
+      <div className="contentContainer">
+        <AddPostModal />
+        <UploadPhotostModal />
+      </div>
     </>
   );
 }

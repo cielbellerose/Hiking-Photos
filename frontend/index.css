@@ -1,8 +1,17 @@
+h1 {
+  text-align: left;
+  color: #333;
+  font-size: 2.5rem;
+  margin: 20px;
+}
+
+.contentContainer {
+    margin: 10px;
+}
+
 .map {
     position: relative;
 }
-
-
 
 .map img,.map svg {
     position: absolute;

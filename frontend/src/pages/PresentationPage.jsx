@@ -7,6 +7,7 @@ export default function PresentationPage() {
     <>
       <TrailNavbar />
       <h1>Presentation Page</h1>
+      <div className="contentContainer"></div>
     </>
   );
 }

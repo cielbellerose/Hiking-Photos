@@ -10,12 +10,14 @@ export default function LoginPage() {
   return (
     <>
       <TrailNavbar />
-      <div className={styles.container}>
-        {isLogin ? (
-          <LoginForm onSignupSelection={() => setIsLogin(false)} />
-        ) : (
-          <RegisterForm onLoginSelection={() => setIsLogin(true)} />
-        )}
+      <div className={styles.contentContainer}>
+        <div className={styles.container}>
+          {isLogin ? (
+            <LoginForm onSignupSelection={() => setIsLogin(false)} />
+          ) : (
+            <RegisterForm onLoginSelection={() => setIsLogin(true)} />
+          )}
+        </div>
       </div>
     </>
   );

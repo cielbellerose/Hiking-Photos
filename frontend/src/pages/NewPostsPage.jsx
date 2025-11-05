@@ -8,7 +8,9 @@ export default function NewPostsPage() {
     <>
       <TrailNavbar />
       <h1>Map!</h1>
-      <Map url="http://localhost:3000/api/test" />
+      <div className="contentContainer">
+        <Map url="http://localhost:3000/api/test" />
+      </div>
     </>
   );
 }
