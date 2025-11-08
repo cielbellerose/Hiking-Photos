@@ -25,10 +25,49 @@ h1 {
     z-index: auto;
 }
 
+.PostForm {
+    display: flexbox;
+    position: sticky;
+    top: 3rem;
+    left: 70vw;
+    right: 1rem;
+    border-radius: 25px;
+    padding: 1rem 1rem 0rem 1rem;
+    width: 30rem;
+    height: auto;
+    z-index: 4;
+    border: 1px solid gray;
+    background-color: lightgrey;
+}
+
+.submit-button {
+    float: right;
+    margin-top: 1rem;
+    margin-right: 1rem;
+}
+
+#root {
+  margin: 0px;
+  padding: 0px;
+  min-height: 5083px;
+  width: 100vw;
+}
+
 svg path {
     z-index: 1;
 }
 
+.map .photos {
+    position:absolute;
+    z-index: 1;
+    height: 200px;
+    width: auto;
+    border: 2px solid grey;
+}
+
+.picture-toggles {
+    margin-top: 1rem;
+}
 
 svg .Dot {
     r:4.5;
@@ -37,4 +76,8 @@ svg .Dot {
     transform: translate(-36px,-20px);
     z-index: 2;
 
+}
+
+.map svg foreignObject {
+    overflow: visible;
 }

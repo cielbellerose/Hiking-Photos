@@ -3,12 +3,13 @@ import mappify from "../modules/mappify";
 import MapImageDot from "./MapImageDot";
 import { useRef, useEffect, useState } from "react";
 
-export default function Map({url}) {
+export default function Map({url,openPic,setOpenPic}) {
   const [mapDots,setMapDots] = useState([])
   const mapImg = useRef(null);
   const trail = useRef(null);
-  console.log("Starting Map componant for url", url);
+  //console.log("Starting Map componant for url", url);
 
+  let pictures = 1;
   //convert the data in the JSON to real things on the page
   const processJson = (json) => {
     const convertertedCooodinates = json.staticTestCoodinates.map((data) => {
@@ -17,10 +18,12 @@ export default function Map({url}) {
       const point = trail.current.getPointAtLength(length * (data.percent / 100));
       onMap.X = point.x;
       onMap.Y = point.y;
-      onMap.ID = data.ID;
+      onMap.ID = pictures++;
+      onMap.url = data.url;
+      console.log(map);
       return onMap;
     })    
-    console.log(convertertedCooodinates);
+    // console.log(convertertedCooodinates);
     setMapDots(convertertedCooodinates);
     //console.log(json.staticTestCoodinates)
   }
@@ -32,6 +35,13 @@ export default function Map({url}) {
   },[])
   
 
+  function onClickHandlerDots(ID){
+    if (openPic === ID){
+      setOpenPic(-1); //no pic is showing
+    } else {
+      setOpenPic(ID); 
+    }
+  }
 
   const scale = .908
   return (
@@ -40,13 +50,13 @@ export default function Map({url}) {
       <img ref={mapImg}  src={map}></img> 
       <svg  viewBox={`0 0 ${700.549 * scale} ${3652.86 * scale}`}>
         {/* <MapImageDot ID={1} X={200} Y={20} onClick={()=>{}}/> */}
-        {mapDots.map((dot) => <MapImageDot key={dot.ID} X={dot.X} Y={dot.Y} onClick={()=>{console.log(`dot ${dot.ID} clicked`)}}/>)}
+        {mapDots.map((dot) => <MapImageDot openID={openPic} myID={dot.ID} key={dot.ID} X={dot.X} Y={dot.Y} url={dot.url} onClick={() => onClickHandlerDots(dot.ID)}/>)}
         <path
           ref={trail}
           transform="translate(-36,-20)"
           stroke="green"
           fill="none"
-          strokeWidth="2"
+          strokeWidth="0"
           d={mappify.ATPath}
         ></path>
       </svg>
