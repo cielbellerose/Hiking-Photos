@@ -9,7 +9,6 @@ export default function Map({url,openPic,setOpenPic}) {
   const trail = useRef(null);
   //console.log("Starting Map componant for url", url);
 
-  let pictures = 1;
   //convert the data in the JSON to real things on the page
   const processJson = (json) => {
     const convertertedCooodinates = json.staticTestCoodinates.map((data) => {
@@ -18,7 +17,7 @@ export default function Map({url,openPic,setOpenPic}) {
       const point = trail.current.getPointAtLength(length * (data.percent / 100));
       onMap.X = point.x;
       onMap.Y = point.y;
-      onMap.ID = pictures++;
+      onMap.ID = data.ID;
       onMap.url = data.url;
       console.log(map);
       return onMap;
