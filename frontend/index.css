@@ -1,49 +1,61 @@
 h1 {
-  text-align: left;
-  color: #333;
-  font-size: 2.5rem;
+  text-align: center;
+  color: #00471b;
+  font-size: 3rem;
   margin: 20px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  background: white;
+  padding: 20px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  text-shadow:
+    1px 1px 0px #ffffff,
+    2px 2px 0px #ffffff,
+    3px 3px 2px #00471b,
+    5px 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .contentContainer {
-    margin: 10px;
+  margin: 10px;
 }
 
 .map {
-    position: relative;
+  position: relative;
 }
 
-.map img,.map svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 75%;
-    height: auto;
+.map img,
+.map svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 75%;
+  height: auto;
 }
 
 .map img {
-    z-index: auto;
+  z-index: auto;
 }
 
 .PostForm {
-    display: flexbox;
-    position: sticky;
-    top: 3rem;
-    left: 70vw;
-    right: 1rem;
-    border-radius: 25px;
-    padding: 1rem 1rem 0rem 1rem;
-    width: 30rem;
-    height: auto;
-    z-index: 4;
-    border: 1px solid gray;
-    background-color: lightgrey;
+  display: flexbox;
+  position: sticky;
+  top: 3rem;
+  left: 70vw;
+  right: 1rem;
+  border-radius: 25px;
+  padding: 1rem 1rem 0rem 1rem;
+  width: 30rem;
+  height: auto;
+  z-index: 4;
+  border: 1px solid gray;
+  background-color: lightgrey;
 }
 
 .submit-button {
-    float: right;
-    margin-top: 1rem;
-    margin-right: 1rem;
+  float: right;
+  margin-top: 1rem;
+  margin-right: 1rem;
 }
 
 #root {
@@ -54,30 +66,29 @@ h1 {
 }
 
 svg path {
-    z-index: 1;
+  z-index: 1;
 }
 
 .map .photos {
-    position:absolute;
-    z-index: 1;
-    height: 200px;
-    width: auto;
-    border: 2px solid grey;
+  position: absolute;
+  z-index: 1;
+  height: 200px;
+  width: auto;
+  border: 2px solid grey;
 }
 
 .picture-toggles {
-    margin-top: 1rem;
+  margin-top: 1rem;
 }
 
 svg .Dot {
-    r:4.5;
-    fill:red;
-    color:"red";
-    transform: translate(-36px,-20px);
-    z-index: 2;
-
+  r: 4.5;
+  fill: red;
+  color: "red";
+  transform: translate(-36px, -20px);
+  z-index: 2;
 }
 
 .map svg foreignObject {
-    overflow: visible;
+  overflow: visible;
 }

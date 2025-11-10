@@ -9,7 +9,7 @@ export default function NewPostsPage() {
   return (
     <>
       <TrailNavbar />
-      <h1>Map!</h1>
+      <h1>Post Title</h1>
       <Map url="http://localhost:3000/api/test" openPic={openPic} setOpenPic={(v) => {setOpenPic(v)}}/>
       <PostMaker openPic={openPic} setOpenPic={setOpenPic} />
     </>

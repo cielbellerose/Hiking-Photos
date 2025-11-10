@@ -64,10 +64,9 @@
 
 .modalBody {
   background-color: white;
-  /* border-left: 10px solid lightgrey;
-  border-right: 10px solid lightgrey; */
+  border-left: 3px solid lightgrey;
+  border-right: 3px solid lightgrey;
   padding: 20px;
-  margin: 0;
 }
 
 .selected {

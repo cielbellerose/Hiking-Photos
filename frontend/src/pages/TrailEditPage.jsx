@@ -29,7 +29,7 @@ export default function TrailEditPage() {
   return (
     <>
       <TrailNavbar />
-      <h1>Trail Edit Page</h1>
+      <h1>Edit</h1>
       <div className="contentContainer">
         <AddPostModal />
         <UploadPhotostModal onPhotoUploaded={handlePhotoUploaded} />
