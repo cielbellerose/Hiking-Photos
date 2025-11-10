@@ -4,13 +4,14 @@ any section of a map
 const mappify = {};
 
 //the geogrphic decimal coordinates of the start of the Applachian Trail in the format lon/lat
-mappify.atStart = [34.557761,-84.249422];
+mappify.atStart = [34.557761111111105,-84.24942222222222];
 
 //the geogrphic decimal coordinates of the end of the Applachian Trail in the format lon/lat
-mappify.atEnd = [45.904492,-68.9215];
+mappify.atEnd = [45.90448611111111,-68.92149166666667];
 
 //helper calculation that gives the degree length of the trail
-mappify.totalCoordinateLength = [mappify.atEnd[0] - mappify.atStart[0]];
+mappify.totalLatLength = [mappify.atEnd[0] - mappify.atStart[0]];
+mappify.totalLonLength = [mappify.atEnd[1] - mappify.atStart[1]];
 
 /*
 takes in the longitude, and latitude in decimal form, and 
@@ -27,7 +28,14 @@ mappify.calculatePercentage = (lon,lat) => {
     if (lat < (mappify.atStart[1] -1) || (lat >mappify.atEnd[1] + 1)){
         throw new Error("Latitude coordinates out of bounds");
     }
-    return ((mappify.atStart[0] + lon) / mappify.totalCoordinateLength)
+    console.log("lon", lon);
+    console.log("lat", lat);
+    console.log("distance", mappify.atStart[0] - lon)
+    const lonP = (lon - mappify.atStart[0]) / mappify.totalLatLength;
+    const latP = (lat - mappify.atStart[1]) / mappify.totalLonLength;
+    console.log(lonP,latP,(lonP + latP) /2);
+
+    return ((lon - mappify.atStart[0]) / mappify.totalCoordinateLength)
 
 };
 

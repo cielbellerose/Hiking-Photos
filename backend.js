@@ -8,6 +8,9 @@ import { fileURLToPath } from "url";
 import LoginRouter from "./routes/LoginRouter.js";
 import cors from "cors"
 import MongoConnector from "./db/mongoConnection.js"
+import exifr from 'exifr' // => exifr/dist/full.umd.cjs
+import mappify from "./frontend/src/modules/mappify.js";
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -81,6 +84,7 @@ app.post("/api/upload", (req, res) => {
           return res.status(500).json({ error: "File save failed" });
         }
         console.log("File saved successfully:", cleanFilename);
+        getEXIFdata(newPath);
         return res.json({
           success: true,
           message: "Successfully uploaded",
@@ -93,6 +97,13 @@ app.post("/api/upload", (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+async function getEXIFdata(filename){
+  let {latitude, longitude} = await exifr.gps(filename)
+  let percentage = mappify.calculatePercentage(latitude,longitude);
+  console.log(percentage);
+  
+}
 
 //routes to user pictures
 app.use("/user_data/", express.static("./user_data/"));
