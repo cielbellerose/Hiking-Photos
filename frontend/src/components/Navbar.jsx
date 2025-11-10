@@ -35,7 +35,8 @@ function TrailNavbar() {
             {/* Change this formatting later */}
             <Nav.Link href="/login">Login</Nav.Link>
             {/* Remove this but just for ease of access rn*/}
-            <Nav.Link href="/new">Post View</Nav.Link>
+            <Nav.Link href="/viewPost">Post View</Nav.Link>
+            <Nav.Link href="/new">New</Nav.Link>
           </Nav>
           <Nav>
             {username ? (
