@@ -18,6 +18,8 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const baseURL = "http://localhost:3000"
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors()); //for resovling cors issues
@@ -84,7 +86,7 @@ app.post("/api/upload", (req, res) => {
           return res.status(500).json({ error: "File save failed" });
         }
         console.log("File saved successfully:", cleanFilename);
-        getEXIFdata(newPath);
+        getEXIFdata(newPath,cleanFilename);
         return res.json({
           success: true,
           message: "Successfully uploaded",
@@ -98,14 +100,15 @@ app.post("/api/upload", (req, res) => {
   }
 });
 
-async function getEXIFdata(filename){
-  let {latitude, longitude} = await exifr.gps(filename)
+async function getEXIFdata(path,filename){
+  let {latitude, longitude} = await exifr.gps(path)
   let percentage = mappify.calculatePercentage(latitude,longitude);
   const data = {}
   data.lat = latitude;
   data.lon = longitude;
   data.percent = percentage * 100;
-  data.url = filename;
+  data.url = baseURL + "/user_data/" + filename;
+  data.user = "debug" //TODO add in getting actual username here
   console.log("storing photo", data);
   mongoPicturesConnnector.addPicture(data);
   
