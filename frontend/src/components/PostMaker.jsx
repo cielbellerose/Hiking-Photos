@@ -7,7 +7,7 @@ import Server from "../modules/ServerConnector"
 
 // https://react-bootstrap.netlify.app/docs/components/modal/
 // Vertically centered modal
-export default function PostMaker({openPic,setOpenPic}) {
+export default function PostMaker({openPic,setOpenPic,percent,setCurrentPercent}) {
   const [radioValue, setRadioValue] = useState("0");
   const [delayPictureSet,setDelayPictureSet] = useState(() => true);
   const [picturesSelected,setPicturesSelected] = useState({"start": -1,"end":-1});
@@ -22,8 +22,8 @@ export default function PostMaker({openPic,setOpenPic}) {
   function submit(){
     const data = {
         "text": textField.current.value || "",
-        "startPicID": picturesSelected.start,
-        "endPicID" : picturesSelected.end,
+        "Percent1": picturesSelected.start,
+        "Percent2" : picturesSelected.end,
         "user" : user
     }
     if (data.text == null){
@@ -59,10 +59,10 @@ export default function PostMaker({openPic,setOpenPic}) {
         setDelayPictureSet(false);
         return
     }
-    console.log("setting picture");
+    console.log("setting picture at percent",percent);
     setPicturesSelected((prev) => ((radioValue === "0") ?
-        {...prev ,start:openPic} :
-        {...prev ,end:openPic}))
+        {...prev ,start:percent} :
+        {...prev ,end:percent}))
 
   },[openPic])
 
