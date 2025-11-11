@@ -31,7 +31,7 @@ LoginRouter.post("/login", async (req, res) => {
     req.session.userId = user._id.toString();
 
     console.log("Successfully logged in");
-    req.session.username = user;
+    req.session.username = user.username;
     res.json({
       success: true,
       username: user,
@@ -85,7 +85,7 @@ LoginRouter.post("/signup", async (req, res) => {
     res.json({
       success: true,
       message: "User created successfully",
-      user: { username: user.username, password: user.hashedPassword },
+      user: { username: user.username }
     });
   } catch (error) {
     console.error("Failed to create user:", error);

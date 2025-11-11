@@ -135,9 +135,6 @@ app.get("/api/photos", (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
 
 app.post("/api/posts", (req, res) => {
   console.log(req.body);
@@ -180,4 +177,9 @@ app.get("/api/pic", async (req, res) => {
   const { user, p1, p2 } = req.query;
   const data = await mongoPicturesConnnector.getPicturesForPosts(user, p1, p2);
   res.json(data);
+});
+
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
