@@ -5,7 +5,7 @@ import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
 import LoginRouter from "./routes/LoginRouter.js";
-// import cors from "cors";
+ import cors from "cors";
 import MongoConnector from "./db/mongoConnection.js";
 import exifr from "exifr"; // => exifr/dist/full.umd.cjs
 import mappify from "./frontend/src/modules/mappify.js";
@@ -26,7 +26,10 @@ const baseURL = process.env.BASE_URL || "http://localhost:3000";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(cors()); //for resovling cors issues
+app.use(cors({
+  origin: "https://rad-daifuku-c4aece.netlify.app/",
+  credentials: false}
+)); //for resovling cors issues
 
 // Session configuration
 app.use(
