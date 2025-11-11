@@ -1,6 +1,6 @@
 import express from "express";
 import bcrypt from "bcrypt";
-// import { getDB } from "../db/connection.js";
+import { getDB } from "../db/connection.js";
 
 const LoginRouter = express.Router();
 
@@ -14,43 +14,28 @@ LoginRouter.post("/login", async (req, res) => {
         .json({ error: "Please enter a username and password" });
     }
 
-    // --- add when db set up ---
-    // const db = getDB();
-    // const usersCollection = db.collection("users");
+    const db = getDB();
+    const usersCollection = db.collection("users");
 
-    // const user = await usersCollection.findOne({ username });
+    const user = await usersCollection.findOne({ username });
 
-    // if (!user) {
-    //   return res.status(400).json({ error: "User not found" });
-    // }
-
-    // const isPasswordCorrect = await bcrypt.compare(
-    //   password,
-    //   user.password,
-    // );
-
-    // if (!isPasswordCorrect) {
-    //   return res.status(400).json({ error: "Incorrect password" });
-    // }
-
-    // req.session.userId = user._id.toString();
-
-    // ===== temp login before db set up ======
-    if (username !== "testuser") {
+    if (!user) {
       return res.status(400).json({ error: "User not found" });
     }
 
-    if (password !== "testpass") {
-      return res.status(400).json({ error: "User not found" });
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordCorrect) {
+      return res.status(400).json({ error: "Incorrect password" });
     }
 
-    // ========================================
+    req.session.userId = user._id.toString();
 
     console.log("Successfully logged in");
-    req.session.username = /*user*/ "testuser";
+    req.session.username = user;
     res.json({
       success: true,
-      username: /*user*/ "testuser",
+      username: user,
       message: "Login successful",
     });
   } catch (error) {
@@ -75,32 +60,26 @@ LoginRouter.post("/signup", async (req, res) => {
         .json({ error: "Password should be more than 5 characters" });
     }
 
-    // ===== temp login before db set up ======
-
-    // mock that allows any signup
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // ========================================
-
-    // --- add when db set up ---
-    // const db = getDB();
-    // const usersCollection = db.collection("users");
+    const db = getDB();
+    const usersCollection = db.collection("users");
 
     // is the username already in the database?
-    // const isExistingUser = await usersCollection.findOne({ username: username.toLowerCase() });
-    // if (isExistingUser) {
-    //   return res.status(400).json({ error: "Username already taken" });
-    // }
+    const isExistingUser = await usersCollection.findOne({
+      username: username.toLowerCase(),
+    });
+    if (isExistingUser) {
+      return res.status(400).json({ error: "Username already taken" });
+    }
 
-    // const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = {
       username,
       password: hashedPassword,
     };
 
-    // await usersCollection.insertOne(user);
-    // req.session.userId = result.insertedId.toString();
+    const result = await usersCollection.insertOne(user);
+    req.session.userId = result.insertedId.toString();
 
     console.log("User created successfully", user);
     req.session.username = user.username;
@@ -158,34 +137,34 @@ LoginRouter.put("/update-profile", async (req, res) => {
         .json({ error: "Please enter a new username or password" });
     }
 
-    //     const db = getDB();
-    //     const usersCollection = db.collection("users");
-    //     const currentUser = await usersCollection.findOne({
-    //       username: currentName,
-    //     });
-    //     if (!currentUser) {
-    //       return res.status(404).json({ error: "Logged in user not found" });
-    //     }
-    //     if (username && username !== currentName) {
-    //       const existingUser = await usersCollection.findOne({ username });
-    //       if (existingUser) {
-    //         return res.status(400).json({ error: "Username already exists" });
-    //       } else {
-    //         currentUser.username = username;
-    //         req.session.username = username;
-    //       }
-    //     }
-    //     if (password) {
-    //       const hashedPassword = await bcrypt.hash(password, 10);
-    //       currentUser.password = hashedPassword;
-    //     }
-    //     await usersCollection.replaceOne({ username: currentName }, currentUser);
-    //     console.log("Successfully updated user");
-    //     res.json({
-    //       success: true,
-    //       message: "Profile updated successfully",
-    //       username: username || currentName,
-    //     });
+    const db = getDB();
+    const usersCollection = db.collection("users");
+    const currentUser = await usersCollection.findOne({
+      username: currentName,
+    });
+    if (!currentUser) {
+      return res.status(404).json({ error: "Logged in user not found" });
+    }
+    if (username && username !== currentName) {
+      const existingUser = await usersCollection.findOne({ username });
+      if (existingUser) {
+        return res.status(400).json({ error: "Username already exists" });
+      } else {
+        currentUser.username = username;
+        req.session.username = username;
+      }
+    }
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      currentUser.password = hashedPassword;
+    }
+    await usersCollection.replaceOne({ username: currentName }, currentUser);
+    console.log("Successfully updated user");
+    res.json({
+      success: true,
+      message: "Profile updated successfully",
+      username: username || currentName,
+    });
   } catch (err) {
     console.error("Error updating user:", err);
     res.status(500).json({ error: "Internal Server Error" });
@@ -198,25 +177,27 @@ LoginRouter.delete("/delete-profile", async (req, res) => {
     return res.status(401).json({ error: "User not logged in" });
   }
   try {
-    //     const db = getDB();
-    //     const usersCollection = db.collection("users");
-    //     await usersCollection.deleteOne({ username: currentName });
-    //     const deletedUser = await users.findOne({ display_name: currentName });
-    // if (!deletedUser) {
-    //     return {
-    //       success: true,
-    //       message: "User deleted successfully",
-    //     };
-    //   }
-    //     req.session.destroy((error) => {
-    //       if (error) {
-    //         return res.status(500).json({ error: "Failed to delete user" });
-    //       }
-    //       res.json({
-    //         success: true,
-    //         message: "Profile deleted successfully",
-    //       });
-    //     });
+    const db = getDB();
+    const usersCollection = db.collection("users");
+    await usersCollection.deleteOne({ username: currentName });
+    const deletedUser = await usersCollection.findOne({
+      display_name: currentName,
+    });
+    if (!deletedUser) {
+      return {
+        success: true,
+        message: "User deleted successfully",
+      };
+    }
+    req.session.destroy((error) => {
+      if (error) {
+        return res.status(500).json({ error: "Failed to delete user" });
+      }
+      res.json({
+        success: true,
+        message: "Profile deleted successfully",
+      });
+    });
   } catch (error) {
     console.error("Error deleting user:", error);
     res.status(500).json({ error: "Internal Server Error" });
