@@ -5,23 +5,19 @@ import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import EditProfileForm from "./EditProfileForm.jsx";
+import user from "./modules/user";
 
 function TrailNavbar() {
   const [username, setUsername] = useState("debug"); //TODO double check that current user is overriding
+  const [showEditModal, setShowEditModal] = useState(false);
+  const navigate = useNavigate(); // for switching pages
 
   // check if a user is currently logged in
   useEffect(() => {
     async function checkLogin() {
-      try {
-        const response = await fetch("/api/current_user", {
-          credentials: "include",
-        });
-        if (response.ok) {
-          const data = await response.json();
-          setUsername(data.username);
-        }
-      } catch (error) {
-        console.error("Error checking login info:", error);
+      const currentUsername = await user.getCurrentUser();
+      if (currentUsername) {
+        setUsername(currentUsername);
       }
     }
     checkLogin();
