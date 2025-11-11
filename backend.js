@@ -26,10 +26,10 @@ const baseURL = process.env.BASE_URL || "http://localhost:3000";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(cors({
-//   origin: "https://rad-daifuku-c4aece.netlify.app/",
-//   credentials: false}
-// )); //for resovling cors issues
+app.use(cors({
+  origin: "https://rad-daifuku-c4aece.netlify.app",
+  credentials: false}
+)); //for resovling cors issues
 
 // Session configuration
 app.use(
@@ -44,7 +44,8 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 1 day
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
+      sameSite: "none" 
     },
   }),
 );
@@ -180,10 +181,6 @@ app.get("/api/pic", async (req, res) => {
 });
 
 app.use(express.static("./frontend/dist"));
-
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-});
 
 
 app.listen(PORT, () => {
