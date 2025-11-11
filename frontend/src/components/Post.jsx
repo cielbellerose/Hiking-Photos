@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Server from "../modules/ServerConnector";
+import styles from "../css/Post.module.css";
 
 export default function Post({ post, setReloadNeeded }) {
   function handleDelete(postID) {
@@ -8,7 +9,7 @@ export default function Post({ post, setReloadNeeded }) {
   }
 
   return (
-    <div style={{ display: "flex" }} className="post">
+    <div className={styles.post} style={{ display: "flex" }}>
       <Link state={post} to={{ pathname: "/view" }} className="post-title">
         {post.title}
       </Link>
