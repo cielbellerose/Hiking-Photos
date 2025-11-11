@@ -18,6 +18,7 @@ function TrailNavbar() {
   useEffect(() => {
     async function checkLogin() {
       const currentUsername = await user.getCurrentUser();
+      console.log("currentusername:",currentUsername)
       if (currentUsername) {
         setUsername(currentUsername);
       }
