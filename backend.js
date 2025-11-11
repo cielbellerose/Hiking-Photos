@@ -27,12 +27,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://rad-daifuku-c4aece.netlify.app'); // or a specific domain
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type',"Authorization");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://rad-daifuku-c4aece.netlify.app"
+  ); // or a specific domain
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type",
+    "Authorization"
+  );
 
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return res.sendStatus(200);
   }
 
@@ -43,23 +50,23 @@ const sessionStore = MongoStore.create({
   mongoUrl: process.env.MONGODB_URI,
   collectionName: "sessions",
 });
-sessionStore.on('error', function(error) {
-  console.error('session store ERROR:', error);
+sessionStore.on("error", function (error) {
+  console.error("session store ERROR:", error);
 });
-sessionStore.on('connected', function() {
-  console.log('session store connected to MongoDB');
+sessionStore.on("connected", function () {
+  console.log("session store connected to MongoDB");
 });
-sessionStore.on('create', function(sessionId) {
-  console.log('session store created:', sessionId);
+sessionStore.on("create", function (sessionId) {
+  console.log("session store created:", sessionId);
 });
-sessionStore.on('set', function(sessionId) {
-  console.log('session store set:', sessionId);
+sessionStore.on("set", function (sessionId) {
+  console.log("session store set:", sessionId);
 });
-sessionStore.on('update', function(sessionId) {
-  console.log('session store updated:', sessionId);
+sessionStore.on("update", function (sessionId) {
+  console.log("session store updated:", sessionId);
 });
-sessionStore.on('touch', function(sessionId) {
-  console.log('session store touched:', sessionId);
+sessionStore.on("touch", function (sessionId) {
+  console.log("session store touched:", sessionId);
 });
 
 console.log("session store:", sessionStore);
@@ -76,15 +83,15 @@ app.use(
       maxAge: 1000 * 60 * 60 * 24, // 1 day
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     },
-  }),
+  })
 );
 
 app.use((req, res, next) => {
-  console.log('Session ID:', req.sessionID);
-  console.log('Session data:', req.session);
-  console.log('Cookie header:', req.headers.cookie);
+  console.log("Session ID:", req.sessionID);
+  console.log("Session data:", req.session);
+  console.log("Cookie header:", req.headers.cookie);
   next();
 });
 
@@ -116,7 +123,7 @@ app.post("/api/upload", (req, res) => {
       // fixes issue with spaces in files
       const cleanFilename = file.originalFilename.replace(
         /[^a-zA-Z0-9.-]/g,
-        "_",
+        "_"
       );
       const newPath = path.join(__dirname, "user_data", cleanFilename);
 
@@ -147,7 +154,8 @@ async function getEXIFdata(path, filename, username) {
   data.lat = latitude;
   data.lon = longitude;
   data.percent = percentage * 100;
-  data.url = "https://hiking-photos-66kz.onrender.com" + "/user_data/" + filename;
+  data.url =
+    "https://hiking-photos-66kz.onrender.com" + "/user_data/" + filename;
   data.user = username;
   console.log("storing photo", data);
   mongoPicturesConnnector.addPicture(data);
@@ -174,7 +182,6 @@ app.get("/api/photos", (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
 
 app.post("/api/posts", (req, res) => {
   console.log(req.body);
@@ -219,7 +226,6 @@ app.get("/api/pic", async (req, res) => {
 });
 
 app.use(express.static("./frontend/dist"));
-
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

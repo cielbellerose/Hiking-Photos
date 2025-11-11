@@ -5,7 +5,7 @@ import { connectDB } from "../db/connection.js";
 const LoginRouter = express.Router();
 
 LoginRouter.post("/login", async (req, res) => {
-  console.log('hit api/login');
+  console.log("hit api/login");
   try {
     const { username, password } = req.body;
 
@@ -17,7 +17,9 @@ LoginRouter.post("/login", async (req, res) => {
 
     const db = await connectDB();
     const usersCollection = db.collection("users");
-    const user = await usersCollection.findOne({ username: username.toLowerCase() });
+    const user = await usersCollection.findOne({
+      username: username.toLowerCase(),
+    });
 
     if (!user) {
       return res.status(400).json({ error: "User not found" });
@@ -40,13 +42,13 @@ LoginRouter.post("/login", async (req, res) => {
         console.error("Session save error:", err);
         return res.status(500).json({ error: "Session save failed" });
       }
-      
+
       res.json({
         success: true,
-        username: user.username,  // ✅ Fixed
+        username: user.username, // ✅ Fixed
         message: "Login successful",
       });
-  });
+    });
   } catch (error) {
     console.error("Failed to log in", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -54,7 +56,7 @@ LoginRouter.post("/login", async (req, res) => {
 });
 
 LoginRouter.post("/signup", async (req, res) => {
-  console.log('hit api/signup')
+  console.log("hit api/signup");
   try {
     const { username, password } = req.body;
 
@@ -95,16 +97,16 @@ LoginRouter.post("/signup", async (req, res) => {
     console.log("User created successfully", user);
     req.session.username = user.username;
     req.session.save((err) => {
-    if (err) {
-      return res.status(500).json({ error: "Session save failed" });
-    }
-    
-    res.json({
-      success: true,
-      message: "User created successfully",
-      user: { username: user.username }
+      if (err) {
+        return res.status(500).json({ error: "Session save failed" });
+      }
+
+      res.json({
+        success: true,
+        message: "User created successfully",
+        user: { username: user.username },
+      });
     });
-  });
   } catch (error) {
     console.error("Failed to create user:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -112,7 +114,7 @@ LoginRouter.post("/signup", async (req, res) => {
 });
 
 LoginRouter.get("/current_user", (req, res) => {
-  console.log('hit api/current_user')
+  console.log("hit api/current_user");
   const username = req.session.username;
 
   if (username) {
@@ -123,7 +125,7 @@ LoginRouter.get("/current_user", (req, res) => {
 });
 
 LoginRouter.post("/logout", (req, res) => {
-  console.log('hit api/logout')
+  console.log("hit api/logout");
   req.session.destroy((error) => {
     if (error) {
       return res.status(500).json({
@@ -139,7 +141,7 @@ LoginRouter.post("/logout", (req, res) => {
 });
 
 LoginRouter.put("/update-profile", async (req, res) => {
-  console.log('hit api/update_profile')
+  console.log("hit api/update_profile");
   const currentName = req.session.username;
   console.log("currentName", currentName);
 
@@ -167,7 +169,9 @@ LoginRouter.put("/update-profile", async (req, res) => {
       return res.status(404).json({ error: "Logged in user not found" });
     }
     if (username && username.toLowerCase() !== currentName) {
-      const existingUser = await usersCollection.findOne({ username: username.toLowerCase() });
+      const existingUser = await usersCollection.findOne({
+        username: username.toLowerCase(),
+      });
       if (existingUser) {
         return res.status(400).json({ error: "Username already exists" });
       } else {
@@ -193,7 +197,7 @@ LoginRouter.put("/update-profile", async (req, res) => {
 });
 
 LoginRouter.delete("/delete-profile", async (req, res) => {
-  console.log('hit api/delete-profile')
+  console.log("hit api/delete-profile");
   const currentName = req.session.username;
   if (!currentName) {
     return res.status(401).json({ error: "User not logged in" });
