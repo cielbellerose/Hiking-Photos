@@ -5,16 +5,15 @@ import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
 import LoginRouter from "./routes/LoginRouter.js";
-import cors from "cors"
-import MongoConnector from "./db/mongoConnection.js"
-import exifr from 'exifr' // => exifr/dist/full.umd.cjs
+import cors from "cors";
+import MongoConnector from "./db/mongoConnection.js";
+import exifr from "exifr"; // => exifr/dist/full.umd.cjs
 import mappify from "./frontend/src/modules/mappify.js";
 import mongoPicturesConnnector from "./db/mongoPicturesConnnector.js";
 import mongoConnection from "./db/mongoConnection.js";
 
-import * as dotenv from 'dotenv';
+import * as dotenv from "dotenv";
 dotenv.config();
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,7 +21,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const baseURL = "http://localhost:3000"
+const baseURL = "http://localhost:3000";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -57,7 +56,6 @@ app.use("/api", LoginRouter);
 //   res.json({ staticTestCoodinates });
 // });
 
-
 app.post("/api/upload", (req, res) => {
   console.log("UPLOAD ROUTE HIT!");
   try {
@@ -90,7 +88,7 @@ app.post("/api/upload", (req, res) => {
           return res.status(500).json({ error: "File save failed" });
         }
         console.log("File saved successfully:", cleanFilename);
-        getEXIFdata(newPath,cleanFilename);
+        getEXIFdata(newPath, cleanFilename);
         return res.json({
           success: true,
           message: "Successfully uploaded",
@@ -104,18 +102,17 @@ app.post("/api/upload", (req, res) => {
   }
 });
 
-async function getEXIFdata(path,filename){
-  let {latitude, longitude} = await exifr.gps(path)
-  let percentage = mappify.calculatePercentage(latitude,longitude);
-  const data = {}
+async function getEXIFdata(path, filename) {
+  let { latitude, longitude } = await exifr.gps(path);
+  let percentage = mappify.calculatePercentage(latitude, longitude);
+  const data = {};
   data.lat = latitude;
   data.lon = longitude;
   data.percent = percentage * 100;
   data.url = baseURL + "/user_data/" + filename;
-  data.user = "debug" //TODO add in getting actual username here
+  data.user = "debug"; //TODO add in getting actual username here
   console.log("storing photo", data);
   mongoPicturesConnnector.addPicture(data);
-  
 }
 
 //routes to user pictures
@@ -144,7 +141,6 @@ app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
 
-
 app.post("/api/posts", (req, res) => {
   console.log(req.body);
   const data = req.body;
@@ -159,31 +155,31 @@ app.post("/api/updatePost", async (req, res) => {
   const data = req.body;
   delete data._id;
   try {
-      await mongoConnection.updatePost(id,data);
-      res.sendStatus(200);
-  } catch (error){
-    console.error()
+    await mongoConnection.updatePost(id, data);
+    res.sendStatus(200);
+  } catch (error) {
+    console.error("Error updating post", error);
   }
 });
 
 app.post("/api/posts/delete", async (req, res) => {
   console.log("Deleting post");
   try {
-      await mongoConnection.deletePost(req.body.id);
-      res.sendStatus(200);
-  } catch (error){
-    console.error()
+    await mongoConnection.deletePost(req.body.id);
+    res.sendStatus(200);
+  } catch (error) {
+    console.error("Error deleting post", error);
   }
 });
 
 app.get("/api/posts", (req, res) => {
-  const {user} = req.query;
-  
-  MongoConnector.getPosts(user).then((d) => res.json({d,}));
+  const { user } = req.query;
+
+  MongoConnector.getPosts(user).then((d) => res.json({ d }));
 });
 
 app.get("/api/pic", async (req, res) => {
-  const {user,p1,p2} = req.query;
-  const data = await mongoPicturesConnnector.getPicturesForPosts(user,p1,p2);
+  const { user, p1, p2 } = req.query;
+  const data = await mongoPicturesConnnector.getPicturesForPosts(user, p1, p2);
   res.json(data);
 });
