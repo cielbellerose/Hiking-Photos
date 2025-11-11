@@ -16,7 +16,7 @@ This is a full stack application with Node + Express + Mongo and React. The webs
 ## Site Structure  
 ### Site Structure  
 - **Edit Page**
-- **Login (`loginPage.jsx`)** - Login page
+- **Login (`LoginPage.jsx`)** - Login page
 - **Presentation Page**
 
 
