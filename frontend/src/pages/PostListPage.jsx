@@ -8,10 +8,11 @@ import Post from "../components/Post.jsx";
 export default function PostListPage() {
   const [posts, setPosts] = useState(() => []);
   const [reload, setReloadNeeded] = useState(false);
-  const { user } = useParams();
+  
 
-  useEffect(() => {
-    ServerConnector.getPostsForUser(user).then((d) => setPosts(d.d));
+  useEffect(async () => {
+    const currentUser = await userModule.getCurrentUser();
+    ServerConnector.getPostsForUser(currentUser).then((d) => setPosts(d.d));
     setReloadNeeded(false);
   }, [reload, user]);
 
