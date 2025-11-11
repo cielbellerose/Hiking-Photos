@@ -18,11 +18,11 @@ export default function PostListPage() {
 
   
 
-  function makePost(post,value){
-    console.log(posts)
+  function makePost(post){
+    //console.log(posts)
     if (post){
         console.log(post);
-        return <Post Posttext={post.text} key={posts.length - value} number={posts.length - value} />
+        return <Post post={post} key={post._id}  />
     }
   }
 
@@ -33,7 +33,7 @@ export default function PostListPage() {
   return (
     <>
       <TrailNavbar/>
-      {posts.map((post,value) => makePost(post,value))}
+      {posts.map((post) => makePost(post))}
     </>
   );
 }

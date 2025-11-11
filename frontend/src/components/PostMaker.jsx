@@ -12,6 +12,7 @@ export default function PostMaker({openPic,setOpenPic,percent,setCurrentPercent}
   const [delayPictureSet,setDelayPictureSet] = useState(() => true);
   const [picturesSelected,setPicturesSelected] = useState({"start": -1,"end":-1});
   const textField = useRef(null);
+  const title = useRef(null);
   const user = "debug"; //TODO : UPDATE TO GET USER
   const radios = [
     { name: 'Start', value:"0"},
@@ -21,16 +22,17 @@ export default function PostMaker({openPic,setOpenPic,percent,setCurrentPercent}
 
   function submit(){
     const data = {
+        "title": title.current.value,
         "text": textField.current.value || "",
         "Percent1": picturesSelected.start,
         "Percent2" : picturesSelected.end,
         "user" : user
     }
-    if (data.text == null){
+    if (data.text == null || data.title == ""){
       showError("Not enough data")
       return
     }
-    if((data.endPicID == -1) || data.startPicID == -1){
+    if((data.Percent1 == -1) || data.Percent2 == -1){
       showError("Select end and beginning Pictures");
       return
     }
@@ -38,7 +40,7 @@ export default function PostMaker({openPic,setOpenPic,percent,setCurrentPercent}
   }
 
   function showError(Error){
-    console.e(Error);
+    console.error(Error);
   }
 
 
@@ -84,7 +86,7 @@ export default function PostMaker({openPic,setOpenPic,percent,setCurrentPercent}
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
             >
-                <Form.Label>Enter Post</Form.Label>
+                <Form.Control as="textarea" className="enter-post-title" placeholder="Title..." rows={1} ref={title} />
                 <Form.Control as="textarea" placeholder="Your adventure here..." rows={3} ref={textField} />
                 <ButtonGroup className="picture-toggles">
                     {radios.map((radio, idx) => (
