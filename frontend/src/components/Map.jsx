@@ -7,7 +7,6 @@ export default function Map({
   url,
   openPic,
   setOpenPic,
-  currentPercent,
   setCurrentPercent,
 }) {
   const [mapDots, setMapDots] = useState([]);
