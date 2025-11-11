@@ -43,6 +43,24 @@ const sessionStore = MongoStore.create({
   mongoUrl: process.env.MONGODB_URI,
   collectionName: "sessions",
 });
+sessionStore.on('error', function(error) {
+  console.error('session store ERROR:', error);
+});
+sessionStore.on('connected', function() {
+  console.log('session store connected to MongoDB');
+});
+sessionStore.on('create', function(sessionId) {
+  console.log('session store created:', sessionId);
+});
+sessionStore.on('set', function(sessionId) {
+  console.log('session store set:', sessionId);
+});
+sessionStore.on('update', function(sessionId) {
+  console.log('session store updated:', sessionId);
+});
+sessionStore.on('touch', function(sessionId) {
+  console.log('session store touched:', sessionId);
+});
 
 console.log("session store:", sessionStore);
 
