@@ -1,8 +1,8 @@
 import LoginForm from "../components/LoginForm";
-import TrailNavbar from "../components/NavBar";
 import RegisterForm from "../components/RegisterForm";
 import { useState, useEffect } from "react";
 import styles from "../css/LoginPage.module.css";
+import TrailNavbar from "../components/Navbar";
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);

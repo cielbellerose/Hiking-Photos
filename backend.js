@@ -35,15 +35,15 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URL,
-      collectionName: "sessions",
+      mongoUrl: process.env.MONGODB_URI,
+      collectionName: "users",
     }),
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 1 day
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
     },
-  }),
+  })
 );
 
 app.use(express.static("./frontend/dist"));
@@ -78,7 +78,7 @@ app.post("/api/upload", (req, res) => {
       // fixes issue with spaces in files
       const cleanFilename = file.originalFilename.replace(
         /[^a-zA-Z0-9.-]/g,
-        "_",
+        "_"
       );
       const newPath = path.join(__dirname, "user_data", cleanFilename);
 
