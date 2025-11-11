@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import styles from "../css/LoginForm.module.css";
+import Server from "../modules/ServerConnector.js"
 
 export default function RegisterForm({ onLoginSelection }) {
   const [username, setUsername] = useState("");
@@ -14,7 +15,7 @@ export default function RegisterForm({ onLoginSelection }) {
     event.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch("/api/signup", {
+      const res = await fetch(Server.serverName + "/api/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

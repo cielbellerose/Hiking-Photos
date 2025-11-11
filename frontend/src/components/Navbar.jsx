@@ -6,6 +6,8 @@ import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import EditProfileForm from "./EditProfileForm.jsx";
 import user from "../modules/user.js";
+import Server from "../modules/ServerConnector.js"
+
 
 function TrailNavbar() {
   const [username, setUsername] = useState(null); //TODO double check that current user is overriding
@@ -25,7 +27,7 @@ function TrailNavbar() {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("/api/logout", {
+      const response = await fetch(Server.serverName + "/api/logout", {
         method: "POST",
         credentials: "include",
       });
