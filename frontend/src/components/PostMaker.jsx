@@ -26,7 +26,7 @@ export default function PostMaker({
   });
   const textField = useRef(null);
   const title = useRef(null);
-  const user = "debug"; //TODO : UPDATE TO GET USER
+  const user = await user.getCurrentUser();
   const radios = [
     { name: "Start", value: "0" },
     { name: "End", value: "1" },

@@ -36,7 +36,7 @@ app.use(
     saveUninitialized: false,
     store: MongoStore.create({
       mongoUrl: process.env.MONGO_URL,
-      collectionName: "sessions",
+      collectionName: "users",
     }),
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 1 day
