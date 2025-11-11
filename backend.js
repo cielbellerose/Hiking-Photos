@@ -165,3 +165,10 @@ app.get("/api/posts", (req, res) => {
   // MongoConnector.addPost(data);
   // res.sendStatus(200);
 });
+
+app.get("/api/pic", (req, res) => {
+  console.log("Pic req");
+  const {user,p1,p2} = req.query;
+  console.log(user,p1,p2);
+  //mongoPicturesConnnector.getPicturesForPosts(user,p1,p2).then((d) => res.json({d,}));
+});

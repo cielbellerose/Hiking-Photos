@@ -24,7 +24,6 @@ export default function PostListPage() {
         console.log(post);
         return <Post Posttext={post.text} key={posts.length - value} number={posts.length - value} />
     }
-
   }
 
 
