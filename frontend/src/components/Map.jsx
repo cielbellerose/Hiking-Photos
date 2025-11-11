@@ -11,13 +11,14 @@ export default function Map({url,openPic,setOpenPic,currentPercent,setCurrentPer
 
   //convert the data in the JSON to real things on the page
   const processJson = (json) => {
-    const convertertedCooodinates = json.staticTestCoodinates.map((data) => {
+    console.log(json.d);
+    const convertertedCooodinates = json.d.map((data) => {
       const onMap = {};
       const length = trail.current.getTotalLength();
       const point = trail.current.getPointAtLength(length * (data.percent / 100));
       onMap.X = point.x;
       onMap.Y = point.y;
-      onMap.ID = data.ID;
+      onMap.ID = data._id;
       onMap.url = data.url;
       onMap.percent = data.percent;
       return onMap;
