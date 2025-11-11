@@ -5,7 +5,7 @@ import { connectDB } from "../db/connection.js";
 const LoginRouter = express.Router();
 
 LoginRouter.post("/login", async (req, res) => {
-  console.log('hit api/signup')
+  console.log('hit api/login');
   try {
     const { username, password } = req.body;
 
@@ -15,7 +15,7 @@ LoginRouter.post("/login", async (req, res) => {
         .json({ error: "Please enter a username and password" });
     }
 
-    const db = connectDB();
+    const db = await connectDB();
     const usersCollection = db.collection("users");
     const user = await usersCollection.findOne({ username });
 
@@ -142,7 +142,7 @@ LoginRouter.put("/update-profile", async (req, res) => {
         .json({ error: "Please enter a new username or password" });
     }
 
-    const db = connectDB();
+    const db = await connectDB();
     const usersCollection = db.collection("users");
     const currentUser = await usersCollection.findOne({
       username: currentName,
