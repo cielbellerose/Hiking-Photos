@@ -3,8 +3,14 @@ import mappify from "../modules/mappify";
 import MapImageDot from "./MapImageDot";
 import { useRef, useEffect, useState } from "react";
 
-export default function Map({url,openPic,setOpenPic,currentPercent,setCurrentPercent}) {
-  const [mapDots,setMapDots] = useState([])
+export default function Map({
+  url,
+  openPic,
+  setOpenPic,
+  currentPercent,
+  setCurrentPercent,
+}) {
+  const [mapDots, setMapDots] = useState([]);
   const mapImg = useRef(null);
   const trail = useRef(null);
   //console.log("Starting Map componant for url", url);
@@ -32,13 +38,12 @@ export default function Map({url,openPic,setOpenPic,currentPercent,setCurrentPer
   //getAPIitems from URL
   useEffect(() => {
     fetch(url)
-    .then(r => r.json())
-    .then((data) => processJson(data));
-  },[])
-  
+      .then((r) => r.json())
+      .then((data) => processJson(data));
+  }, []);
 
-  function onClickHandlerDots(ID,percent){
-    if (openPic === ID){
+  function onClickHandlerDots(ID, percent) {
+    if (openPic === ID) {
       setOpenPic(-1); //no pic is showing
       setCurrentPercent(-1);
     } else {
@@ -54,7 +59,17 @@ export default function Map({url,openPic,setOpenPic,currentPercent,setCurrentPer
       <img ref={mapImg} src={map}></img>
       <svg viewBox={`0 0 ${700.549 * scale} ${3652.86 * scale}`}>
         {/* <MapImageDot ID={1} X={200} Y={20} onClick={()=>{}}/> */}
-        {mapDots.map((dot) => <MapImageDot openID={openPic} myID={dot.ID} key={dot.ID} X={dot.X} Y={dot.Y} url={dot.url} onClick={() => onClickHandlerDots(dot.ID,dot.percent)}/>)}
+        {mapDots.map((dot) => (
+          <MapImageDot
+            openID={openPic}
+            myID={dot.ID}
+            key={dot.ID}
+            X={dot.X}
+            Y={dot.Y}
+            url={dot.url}
+            onClick={() => onClickHandlerDots(dot.ID, dot.percent)}
+          />
+        ))}
         <path
           ref={trail}
           transform="translate(-36,-20)"

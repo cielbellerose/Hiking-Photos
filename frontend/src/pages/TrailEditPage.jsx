@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import TrailNavbar from "../components/NavBar";
+import TrailNavbar from "../components/Navbar";
 import UploadPhotostModal from "../components/UploadPhotosModal";
 
 export default function TrailEditPage() {

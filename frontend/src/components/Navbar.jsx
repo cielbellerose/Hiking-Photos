@@ -8,7 +8,7 @@ import EditProfileForm from "./EditProfileForm.jsx";
 import user from "../modules/user.js";
 
 function TrailNavbar() {
-  const [username, setUsername] = useState("debug"); //TODO double check that current user is overriding
+  const [username, setUsername] = useState(null); //TODO double check that current user is overriding
   const [showEditModal, setShowEditModal] = useState(false);
   const navigate = useNavigate(); // for switching pages
 
