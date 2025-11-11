@@ -6,6 +6,7 @@
   "license": "MIT",
   "main": "backend.js",
   "type": "module",
+  "proxy":"https://hiking-photos-66kz.onrender.com/",
   "scripts": {
     "start": "node --watch backend.js",
     "test": "nodemon backend.js",
