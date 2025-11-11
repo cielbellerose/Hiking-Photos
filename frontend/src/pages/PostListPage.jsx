@@ -4,6 +4,7 @@ import ServerConnector from "../modules/ServerConnector.js";
 import { useEffect } from "react";
 import TrailNavbar from "../components/Navbar.jsx";
 import Post from "../components/Post.jsx";
+import userModule from "../modules/user.js"
 
 export default function PostListPage() {
   const [posts, setPosts] = useState(() => []);
