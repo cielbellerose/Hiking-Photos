@@ -61,7 +61,8 @@ LoginRouter.post("/signup", async (req, res) => {
         .json({ error: "Password should be more than 5 characters" });
     }
 
-    const db = connectDB();
+    const db = await connectDB();
+    console.log(db);
     const usersCollection = db.collection("users");
 
     // is the username already in the database?
