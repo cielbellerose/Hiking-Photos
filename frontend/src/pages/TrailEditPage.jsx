@@ -33,22 +33,6 @@ export default function TrailEditPage() {
       <h1>Edit</h1>
       <div className="contentContainer">
         <UploadPhotostModal onPhotoUploaded={handlePhotoUploaded} />
-        {photos.map((photo, index) => (
-          <div key={index} style={{ margin: "10px" }}>
-            <img
-              src={photo.url}
-              alt={`Upload ${index + 1}`}
-              width="300"
-              onError={(e) => {
-                console.error(`Failed to load image: /user_data/${photo}`);
-                e.target.style.border = "2px solid red";
-              }}
-              onLoad={() =>
-                console.log(`Successfully loaded: /user_data/${photo}`)
-              }
-            />
-          </div>
-        ))}
         {/* If no photos - for debugging*/}
         {photos.length === 0 && <p>No photos uploaded yet.</p>}
       </div>
