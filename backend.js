@@ -71,15 +71,16 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: sessionStore,
+    proxy: true,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 1 day
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
+      domain: process.env.NODE_ENV === "production" ? '.onrender.com' : undefined,
     },
   }),
 );
-
 app.use("/api", LoginRouter);
 
 app.post("/api/upload", (req, res) => {
