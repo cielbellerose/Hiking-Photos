@@ -28,7 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
   origin: "https://rad-daifuku-c4aece.netlify.app",
-  credentials: false}
+  credentials: true}
 )); //for resovling cors issues
 
 // Session configuration
