@@ -25,7 +25,6 @@ export default function PostMaker({
     start: -1,
     end: -1,
   });
-  const [user,setUser] = useState("debug");
   const textField = useRef(null);
   const title = useRef(null);
 

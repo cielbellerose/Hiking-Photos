@@ -46,6 +46,7 @@ app.use(
   }),
 );
 
+
 app.use(express.static("./frontend/dist"));
 app.use("/api", LoginRouter);
 
