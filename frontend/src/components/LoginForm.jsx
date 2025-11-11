@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import styles from "../css/LoginForm.module.css";
+import Server from "../modules/ServerConnector.js"
 
 export default function LoginForm({ onSignupSelection }) {
   const [username, setUsername] = useState("");
@@ -16,7 +17,7 @@ export default function LoginForm({ onSignupSelection }) {
     try {
       console.log("Sending login request to:", "/api/login");
 
-      const res = await fetch("/api/login", {
+      const res = await fetch(Server.serverName + "/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

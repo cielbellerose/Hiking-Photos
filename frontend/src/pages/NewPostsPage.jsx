@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Map from "../components/Map.jsx";
-import PostMaker from "../components/postMaker.jsx";
+import PostMaker from "../components/PostMaker.jsx";
 import ServerConnector from "../modules/ServerConnector.js";
 import { useLocation } from "react-router-dom";
 import TrailNavbar from "../components/Navbar.jsx";

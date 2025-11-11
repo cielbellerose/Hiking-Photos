@@ -3,6 +3,8 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import styles from "../css/Modal.module.css";
 import toast from "react-hot-toast";
+import Server from "../modules/ServerConnector.js"
+
 
 export default function UploadPhotostModal({ onPhotoUploaded }) {
   const [show, setShow] = useState(false);
@@ -33,7 +35,7 @@ export default function UploadPhotostModal({ onPhotoUploaded }) {
     console.log("About to fetch...");
 
     try {
-      const res = await fetch("/api/upload", {
+      const res = await fetch(Server.serverName +"/api/upload", {
         method: "POST",
         body: formData,
         credentials: "include",

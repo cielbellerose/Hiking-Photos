@@ -2,6 +2,7 @@
 import { useState } from "react";
 import styles from "../css/ProfileForm.module.css";
 import toast from "react-hot-toast";
+import Server from "../modules/ServerConnector.js"
 
 export default function EditProfileForm({
   currentUsername,
@@ -20,7 +21,7 @@ export default function EditProfileForm({
     }
 
     try {
-      const response = await fetch("/api/update-profile", {
+      const response = await fetch(Server.serverName + "/api/update-profile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
