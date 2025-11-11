@@ -23,7 +23,6 @@ me.sendPostToServer = (postdata, setTrueWhenDone) => {
   });
 };
 
-<<<<<<< HEAD
 me.getPostsForUser = async (username) => {
     // console.log("Connector getting posts for",username)
     // console.log("url","/api/posts?" + new URLSearchParams({"user":username}))
@@ -58,6 +57,3 @@ me.deletePost = (id) => {
 
 
 export default me;
-=======
-export default me;
->>>>>>> ba205f0f5ff690d3ab82693608ee8db1ccb56854
