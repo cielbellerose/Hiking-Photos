@@ -5,13 +5,19 @@ CS5610 Project 3
 
 <Description>
 
+This is a full stack application with Node + Express + Mongo and React. The website is a hiking photo story site for users to create collections of pictures at different sections of their hike in order to share their stories with others!
+
 - **Authors:** Jen Gordon and Kinsey Bellerose
-- - **Website Link:** 
+- **Website Link:** https://hiking-photos.onrender.com/
 - **Course Info:** https://johnguerra.co/classes/webDevelopment_fall_2025/
 - **Design Document:** https://docs.google.com/document/d/1NMsJMASNX7XtOqjRp_us2I-1Vf1pIF_oEoNA8RM_MgE/edit?usp=sharing
 
 
 ## Site Structure  
+### Site Structure  
+- **Edit Page**
+- **Login (`loginPage.jsx`)** - Login page
+- **Presentation Page**
 
 
 ## Screenshots
@@ -36,8 +42,37 @@ Presentation Page
 - MongoDB
 - ESLint & Prettier
 
-## Instructions to Build
+## Instructions to Build  
 
+### 1. Clone the Repository  
+```bash
+git clone https://github.com/Jericgordon/Hiking-Photos.git
+cd Hiking-Photos
+```
+
+### 2. Install Dependencies  
+This project uses **ESLint** and **Prettier** for formatting and linting.  
+```bash
+npm install
+```
+### 3. Install Frontend Dependencies
+```bash
+cd frontend
+npm install
+```
+
+### 4. Build the Frontend
+For development environment
+```bash
+npm run build
+npm run dev
+```
+
+### 5. Start the Server
+```bash
+cd ..
+npm start
+```
 
 ## Video Demonstration
 
