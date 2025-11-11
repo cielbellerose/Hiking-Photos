@@ -22,7 +22,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const baseURL = "http://localhost:3000";
+const baseURL = process.env.BASE_URL || "http://localhost:3000";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -107,7 +107,7 @@ async function getEXIFdata(path, filename, username) {
   data.lat = latitude;
   data.lon = longitude;
   data.percent = percentage * 100;
-  data.url = baseURL + "/user_data/" + filename;
+  data.url = "/user_data/" + filename;
   data.user = username;
   console.log("storing photo", data);
   mongoPicturesConnnector.addPicture(data);
