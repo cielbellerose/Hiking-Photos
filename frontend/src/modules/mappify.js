@@ -35,12 +35,7 @@ mappify.calculatePercentage = (lon, lat) => {
   const latP = (lat - mappify.atStart[1]) / mappify.totalLonLength;
   // console.log(lonP,latP,(lonP + latP) /2);
 
-  return (lonP + latP) / 2;
-
-  if (lat < mappify.atStart[1] - 1 || lat > mappify.atEnd[1] + 1) {
-    throw new Error("Latitude coordinates out of bounds");
-  }
-  return (mappify.atStart[0] + lon) / mappify.totalCoordinateLength;
+    return  (lonP + latP )/ 2
 };
 
 //this is the manually drawn path of the AT, that can be used in the SVG path object
