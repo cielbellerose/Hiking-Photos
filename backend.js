@@ -77,10 +77,17 @@ app.use(
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
-      domain: process.env.NODE_ENV === "production" ? '.onrender.com' : undefined,
     },
   }),
 );
+
+app.use((req, res, next) => {
+  console.log('Session ID:', req.sessionID);
+  console.log('Session data:', req.session);
+  console.log('Cookie header:', req.headers.cookie);
+  next();
+});
+
 app.use("/api", LoginRouter);
 
 app.post("/api/upload", (req, res) => {
@@ -172,7 +179,6 @@ app.get("/api/photos", (req, res) => {
 app.post("/api/posts", (req, res) => {
   console.log(req.body);
   const data = req.body;
-  //data.date = Date.now();
   MongoConnector.addPost(data);
   res.sendStatus(200);
 });
