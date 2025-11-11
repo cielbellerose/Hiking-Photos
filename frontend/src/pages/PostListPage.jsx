@@ -17,6 +17,10 @@ export default function PostListPage() {
     setReloadNeeded(false);
   }, [reload]);
 
+  useEffect(() => {
+    console.log(posts);
+  },[posts]);
+
   function makePost(post) {
     //console.log(posts)
     if (post) {
