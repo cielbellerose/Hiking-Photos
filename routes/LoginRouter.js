@@ -183,7 +183,7 @@ LoginRouter.delete("/delete-profile", async (req, res) => {
     return res.status(401).json({ error: "User not logged in" });
   }
   try {
-    const db = connectDB();
+    const db = await connectDB();
     const usersCollection = db.collection("users");
     await usersCollection.deleteOne({ username: currentName });
     const deletedUser = await usersCollection.findOne({
