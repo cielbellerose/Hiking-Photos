@@ -8,7 +8,7 @@ CS5610 Project 3
 This is a full stack application with Node + Express + Mongo and React. The website is a hiking photo story site for users to create collections of pictures at different sections of their hike in order to share their stories with others!
 
 - **Authors:** Jen Gordon and Kinsey Bellerose
-- **Website Link:** https://hiking-photos.onrender.com/
+- **Website Link:** https://rad-daifuku-c4aece.netlify.app/login
 - **Course Info:** https://johnguerra.co/classes/webDevelopment_fall_2025/
 - **Design Document:** https://docs.google.com/document/d/1NMsJMASNX7XtOqjRp_us2I-1Vf1pIF_oEoNA8RM_MgE/edit?usp=sharing
 
