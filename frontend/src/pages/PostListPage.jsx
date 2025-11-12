@@ -4,12 +4,11 @@ import ServerConnector from "../modules/ServerConnector.js";
 import { useEffect } from "react";
 import TrailNavbar from "../components/Navbar.jsx";
 import Post from "../components/Post.jsx";
-import userModule from "../modules/user.js"
+import userModule from "../modules/user.js";
 
 export default function PostListPage() {
   const [posts, setPosts] = useState(() => []);
   const [reload, setReloadNeeded] = useState(false);
-  
 
   useEffect(async () => {
     const currentUser = await userModule.getCurrentUser();
@@ -19,7 +18,7 @@ export default function PostListPage() {
 
   useEffect(() => {
     console.log(posts);
-  },[posts]);
+  }, [posts]);
 
   function makePost(post) {
     //console.log(posts)
@@ -32,9 +31,7 @@ export default function PostListPage() {
   return (
     <>
       <TrailNavbar />
-      <div className="posts-container">
-        {posts.map((post) => makePost(post))}
-      </div>
+      {posts.map((post) => makePost(post))}
     </>
   );
 }

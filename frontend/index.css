@@ -122,10 +122,3 @@ svg .Dot:hover {
 .post-delete {
   margin-right: 0.5rem;
 }
-
-.posts-container {
-  padding: 10px;
-  background-color: lightgrey;
-  font-size: 2rem;
-  border: 2px solid white;
-}
