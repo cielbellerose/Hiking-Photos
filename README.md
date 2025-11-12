@@ -29,7 +29,9 @@ This is a full stack application with Node + Express + Mongo and React. The webs
 
 <img width="1421" height="687" alt="Screenshot 2025-11-11 at 8 33 34 PM" src="https://github.com/user-attachments/assets/1a74c590-d8d7-433a-bd3a-3367504d18de" />
 
-## Technologies Used
+<img width="1623" height="752" alt="Screenshot 2025-11-11 at 6 27 57 PM" src="https://github.com/user-attachments/assets/63b210da-77df-4fac-804a-aef7f62d107d" />
+
+## Technologies Used 
 - HTML5
 - CSS3
 - React
