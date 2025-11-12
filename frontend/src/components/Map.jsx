@@ -39,7 +39,7 @@ export default function Map({
     fetch(url)
       .then((r) => r.json())
       .then((data) => processJson(data));
-  }, []);
+  }, [url]);
 
   function onClickHandlerDots(ID, percent) {
     if (openPic === ID) {
