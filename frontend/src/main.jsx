@@ -1,14 +1,20 @@
 import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+
 import { BrowserRouter, Routes, Route } from "react-router";
 import ReactDOM from "react-dom/client";
 import { Toaster } from "react-hot-toast";
+
 import NewPostsPage from "./pages/NewPostsPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import TrailEditPage from "./pages/TrailEditPage.jsx";
 import PresentationPage from "./pages/PresentationPage.jsx";
-import "../index.css";
 import PostListPage from "./pages/PostListPage.jsx";
-const root = document.getElementById("root");
+
+import "../index.css";
+
+const container = document.getElementById("root");
+const root = createRoot(container);
 
 ReactDOM.createRoot(root).render(
   <BrowserRouter>
@@ -18,7 +24,7 @@ ReactDOM.createRoot(root).render(
         <Route path="/" element={<TrailEditPage />} />
         <Route path="/new" element={<NewPostsPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/view" element={<PresentationPage />} />
+        <Route path="/view" element={<PresentationPage />} /> {/* ??? */}
         <Route path="/viewPost/:user" element={<PostListPage />} />
       </Routes>
     </StrictMode>
