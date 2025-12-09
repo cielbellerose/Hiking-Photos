@@ -1,9 +1,10 @@
 import express from "express";
 import session from "express-session";
-import passport from "./config/passport.js"
+import passport from "./config/passport.js";
 
 import LoginRouter from "./routes/LoginRouter.js";
 
+import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -18,11 +19,12 @@ app.use(express.urlencoded({ extended: true }));
 // Session configuration
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "your-secret-key-change-in-production";
+    secret:
+      process.env.SESSION_SECRET || "your-secret-key-change-in-production",
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false, // Set to true in production with HTTPS
+      secure: process.env.NODE_ENV === "production",
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
     },
@@ -34,10 +36,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/", express.static("./frontend/dist"));
-app.use("/api", listingsRouter);
 app.use("/api/auth", LoginRouter);
-
-// app.use("/api", LoginRouter);
 
 app.get("*splat", function (req, res) {
   res.sendFile("index.html", {
@@ -48,11 +47,6 @@ app.get("*splat", function (req, res) {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
-
-// const baseURL = process.env.BASE_URL || "http://localhost:3000";
-
-
 
 // app.post("/api/upload", (req, res) => {
 //   console.log("UPLOAD ROUTE HIT!");
@@ -180,10 +174,4 @@ app.listen(PORT, () => {
 //   const { user, p1, p2 } = req.query;
 //   const data = await mongoPicturesConnnector.getPicturesForPosts(user, p1, p2);
 //   res.json(data);
-// });
-
-// app.use(express.static("./frontend/dist"));
-
-// app.listen(PORT, () => {
-//   console.log(`Server running on http://localhost:${PORT}`);
 // });
