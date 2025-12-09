@@ -10,26 +10,35 @@ export default function PresentationPage() {
   const [percent, setCurrentPercent] = useState(() => -1);
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
     async function fetchMapUrl() {
       try {
         setLoading(true);
-        const programUser = await Server.getCurrentUser();
+        setError(null);
 
-        // Check if location.state exists and has required properties
-        if (
-          !location.state ||
-          !location.state.Percent1 ||
-          !location.state.Percent2
-        ) {
-          console.error("Missing location state data:", location.state);
+        if (!location.state) {
+          setError("No post data provided. Please select a post to view.");
+          setLoading(false);
+          return;
+        }
+
+        const programUser = await Server.getCurrentUser();
+        if (!programUser) {
+          setError("Please log in to view posts");
+          setLoading(false);
+          return;
+        }
+        if (!location.state.Percent1 || !location.state.Percent2) {
+          setError("Missing post data. The post may be incomplete.");
+          setLoading(false);
           return;
         }
 
         const urlgot = await Server.getURLforMap(
-          programUser,
+          programUser.username || programUser._id || programUser.id,
           location.state.Percent1,
           location.state.Percent2
         );
@@ -38,6 +47,7 @@ export default function PresentationPage() {
         setUrl(urlgot);
       } catch (error) {
         console.error("Error fetching map URL:", error);
+        setError("Failed to load trail map: " + error.message);
       } finally {
         setLoading(false);
       }
@@ -46,27 +56,12 @@ export default function PresentationPage() {
     fetchMapUrl();
   }, [location.state]);
 
-  // if (!location.state) {
-  //   return (
-  //     <>
-  //       <TrailNavbar />
-  //       <div className="container mt-4">
-  //         <div className="alert alert-danger">
-  //           <h2>Error: Missing Presentation Data</h2>
-  //           <p>
-  //             No presentation data was provided. Please go back and select a
-  //             post to view.
-  //           </p>
-  //         </div>
-  //       </div>
-  //     </>
-  //   );
-  // }
-
-  const post = {
-    text: location.state.text || "",
-    title: location.state.title || "Untitled Post",
-  };
+  const post = location.state
+    ? {
+        text: location.state.text || "",
+        title: location.state.title || "Untitled Post",
+      }
+    : null;
 
   return (
     <>

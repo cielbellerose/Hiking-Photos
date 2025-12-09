@@ -92,7 +92,7 @@ export default function UploadPhotosModal({ onPhotoUploaded }) {
             Close
           </Button>
           <Button
-            className={styles.saveButton}
+            className={styles.uploadButton}
             onClick={handleUpload}
             disabled={!file || uploading}
           >

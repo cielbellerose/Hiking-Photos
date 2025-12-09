@@ -41,6 +41,8 @@ export default function NewPostsPage() {
   return (
     <>
       <TrailNavbar />
+      <h1>Add Posts</h1>
+      <h2>Select start and end photos to create a post!</h2>
       <Map
         url={url}
         percent={percent}

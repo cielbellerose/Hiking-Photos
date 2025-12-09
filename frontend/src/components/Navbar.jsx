@@ -50,17 +50,17 @@ function TrailNavbar() {
       <Navbar className={styles.navbar}>
         <Container>
           <Navbar.Brand href="/" className={styles.brand}>
-            Appalachian Stories
+            APPALACHIAN STORIES
           </Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/" className={styles.navLink}>
-              Edit
+              Upload
             </Nav.Link>
             <Nav.Link href={`/viewPost/${username}`} className={styles.navLink}>
               Posts
             </Nav.Link>
             <Nav.Link href="/new" className={styles.navLink}>
-              New
+              View
             </Nav.Link>
           </Nav>
           <Nav>

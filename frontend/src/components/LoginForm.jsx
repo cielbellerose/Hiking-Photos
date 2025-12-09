@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import styles from "../css/LoginForm.module.css";
-import Server from "../modules/ServerConnector.js"
+import Server from "../modules/ServerConnector.js";
 
 export default function LoginForm({ onSignupSelection }) {
   const [username, setUsername] = useState("");
@@ -13,41 +13,20 @@ export default function LoginForm({ onSignupSelection }) {
 
   const handleSubmitForm = async (event) => {
     event.preventDefault();
+
     setLoading(true);
     try {
       console.log("Sending login request to:", "/api/auth/login");
 
-      const res = await fetch(Server.serverName + "/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({ username, password }),
-      });
+      const data = await Server.loginUser(username, password);
 
-      console.log("Response status:", res.status);
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        console.error("Server error:", errorData);
-        toast.error(errorData.error || "Login failed");
-        setLoading(false);
-        return;
-      }
-
-      const data = await res.json();
-      if (!res.ok) {
-        toast.error(data.error || "Login failed");
-        setLoading(false);
-        return;
-      }
       toast.success("Login successful!");
       console.log("Login successful", data);
       navigate("/"); // switch to edit trail page after successful login
     } catch (error) {
       toast.error("Error logging in");
       console.error("Login error:", error);
+    } finally {
       setLoading(false);
     }
   };
