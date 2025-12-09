@@ -1,4 +1,7 @@
 :root {
+  --font-heading: "Bitter", serif;
+  --font-body: "Raleway", sans-serif;
+
   --accent: #9d69a3; /*Vintage Lavender - Accent*/
   --accent-hover: #724976; /*Lavender*/
   --background2: #d9dbf1; /*Dark Purple D9DBF1*/
@@ -7,6 +10,27 @@
   --main: #297045; /*Turf Green*/
   --text: black;
   --text-light: white;
+}
+
+/* Raleway default */
+* {
+  font-family: var(--font-body);
+}
+
+/* Bitter Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.navbar-brand,
+.card-title,
+.modal-title,
+.alert-heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--dark-green);
 }
 
 h1 {

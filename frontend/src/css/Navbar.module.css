@@ -18,6 +18,12 @@
   text-decoration: none;
 }
 
+.brand:hover {
+  color: var(--accent);
+  font-size: 1.7rem;
+  text-decoration: none;
+}
+
 .navLink {
   color: var(--text);
   font-weight: 600;
