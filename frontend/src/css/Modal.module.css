@@ -24,6 +24,13 @@
   background-color: var(--accent-hover);
 }
 
+.uploadButton:disabled {
+  background-color: var(--background2) ;
+  border-color: var(--background2);
+  color: var(--text);
+  opacity: 0.65;
+}
+
 .input:focus {
   outline: none;
   border-color: #6eaa85;
@@ -31,7 +38,7 @@
 }
 
 .modal {
-  background-color: var(--accent-hover);
+  background-color: var(--background2);
 }
 
 .hiddenInput {
@@ -57,19 +64,28 @@
 }
 
 .modal {
-  background-color: var(--accent-hover);
+  background-color: var(--background2);
   border-radius: 10px;
   overflow: hidden;
 }
 
 .modalBody {
   background-color: var(--background);
-  border-left: 3px solid var(--accent-hover);
-  border-right: 3px solid var(--accent-hover);
+  border-left: 3px solid var(--background2);
+  border-right: 3px solid var(--background2);
   padding: 20px;
 }
 
 .selected {
   padding-top: 10px;
   font-weight: 300;
+}
+
+.cancelButton {
+  margin-left: 10px;
+  border: none;
+  padding: 15px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 700;
 }

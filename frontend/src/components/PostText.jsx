@@ -2,7 +2,7 @@ export default function PostText({ post }) {
   if (!post) {
     return (
       <div className="post">
-        <div className="alert alert-warning">No post content available</div>
+        <div></div>
       </div>
     );
   }

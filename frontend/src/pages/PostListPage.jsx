@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import ServerConnector from "../modules/ServerConnector.js";
 import { useEffect } from "react";
 import TrailNavbar from "../components/Navbar.jsx";
 import Post from "../components/Post.jsx";
 import userModule from "../modules/user.js";
+import { Button, Container, Alert, Spinner } from "react-bootstrap";
 import Server from "../modules/ServerConnector.js";
 
 export default function PostListPage() {

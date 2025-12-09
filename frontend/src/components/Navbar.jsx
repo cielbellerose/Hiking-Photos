@@ -65,7 +65,7 @@ function TrailNavbar() {
     <>
       <Navbar className={styles.navbar}>
         <Container>
-          <Navbar.Brand href="/" className={styles.brand}>
+          <Navbar.Brand className={styles.brand}>
             APPALACHIAN STORIES
           </Navbar.Brand>
           <Nav className="me-auto">
@@ -73,7 +73,7 @@ function TrailNavbar() {
               Upload
             </Nav.Link>
             <Nav.Link
-              href={`/viewPost/${username}`}
+              href={`/viewpost/${username}`}
               className={styles.navLink}
               onClick={handlePostsClick}
             >

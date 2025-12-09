@@ -66,9 +66,6 @@ export default function RegisterForm({ onLoginSelection }) {
             disabled={loading}
             required
           />
-          <div className={styles.requirements}>
-            Password must be at least 6 characters
-          </div>
           <input
             type="submit"
             className={styles.submitButton}

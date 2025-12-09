@@ -88,6 +88,7 @@ export default function UploadPhotosModal({ onPhotoUploaded }) {
             variant="secondary"
             onClick={handleClose}
             disabled={uploading}
+            className={styles.cancelButton}
           >
             Close
           </Button>

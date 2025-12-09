@@ -16,9 +16,7 @@ export default function NewPostsPage() {
   useEffect(() => {
     async function checkUser() {
       const currentUser = await userModule.getCurrentUser();
-      if (!currentUser) {
-        // navigate("/login");
-      } else {
+      if (currentUser) {
         setUser(currentUser);
       }
     }
@@ -31,12 +29,8 @@ export default function NewPostsPage() {
     }
   }, []);
 
-  if (!user) {
-    return <div>Loading...</div>;
-  }
-
   const url = ServerConnector.getURLforMap(user, 0, 100); //format the query appropriately
-  console.log("posts for ",user,url);
+  console.log("posts for ", user, url);
 
   return (
     <>

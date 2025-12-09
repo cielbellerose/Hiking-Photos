@@ -52,7 +52,7 @@
 }
 
 .userDisplay {
-  color: var(--text);
+  color: var(--accent);
   font-weight: 700;
   padding: 10px 20px;
   margin: 0 5px;

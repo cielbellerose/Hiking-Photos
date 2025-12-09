@@ -16,7 +16,7 @@
 .input {
   padding: 10px;
   margin: 3px;
-  border: 1px solid var(--background);
+  border: 1px solid var(--background2);
   border-radius: 4px;
   font-size: 16px;
 }
@@ -24,7 +24,7 @@
 .input:focus {
   outline: none;
   border-color: var(--background2);
-  box-shadow: 0 0 0 3px var(--background2);
+  box-shadow: 0 0 0 3px var(--accent);
 }
 
 .submitButton {
