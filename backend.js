@@ -1,5 +1,6 @@
 import express from "express";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import passport from "./config/passport.js";
 import fs from "fs";
 
@@ -38,6 +39,12 @@ app.use(express.urlencoded({ extended: true }));
 // Session configuration
 app.use(
   session({
+    store: MongoStore.create({
+      mongoUrl:
+        process.env.MONGODB_URI ||
+        "mongodb://localhost:27017/appalachian-stories",
+      ttl: 24 * 60 * 60,
+    }),
     secret:
       process.env.SESSION_SECRET || "your-secret-key-change-in-production",
     resave: false,
@@ -78,11 +85,26 @@ app.get("/api/debug/users", async (req, res) => {
 });
 
 // Formatting for Render
-app.get(["/", "/:splat*"], function (req, res) {
-  console.log(`Catch-all route hit for: ${req.url}`);
-  console.log(`Request path: ${req.path}`);
-  console.log(`Request originalUrl: ${req.originalUrl}`);
+app.get("/*", function (req, res) {
+  const indexPath = join(__dirname, "./frontend/dist/index.html");
 
+  console.log(`=== Serving index.html for: ${req.path} ===`);
+  console.log(`Request URL: ${req.url}`);
+  console.log(`Looking for index.html at: ${indexPath}`);
+  console.log(`File exists: ${fs.existsSync(indexPath)}`);
+
+  if (!fs.existsSync(indexPath)) {
+    console.error("ERROR: index.html not found!");
+    console.log("Current directory contents:");
+    const distPath = join(__dirname, "./frontend/dist");
+    if (fs.existsSync(distPath)) {
+      const files = fs.readdirSync(distPath);
+      console.log("Files in dist:", files);
+    } else {
+      console.log("dist folder doesn't exist!");
+    }
+    return res.status(500).send("Frontend not built properly");
+  }
   res.sendFile("index.html", {
     root: join(__dirname, "./frontend/dist"),
   });
