@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
@@ -63,7 +62,7 @@ export default function PostMaker({ openPic, setOpenPic, percent, PrevData }) {
       start: picturesSelected.start,
       Percent2: recordedPercent.end,
       end: picturesSelected.end,
-      user: currentUser.username,
+      user: currentUser.username || currentUser.user?.username,
     };
     console.log("submission data", data);
 
@@ -88,13 +87,30 @@ export default function PostMaker({ openPic, setOpenPic, percent, PrevData }) {
       if (PrevData) {
         data._id = PrevData._id;
         await Server.updatePost(data);
-      } else {
-        await Server.sendPostToServer(data);
+        console.log("✅ Post updated successfully");
+        alert("Post updated successfully!");
         // reset
         if (title.current) title.current.value = "";
         if (textField.current) textField.current.value = "";
         setPicturesSelected({ start: -1, end: -1 });
         setRecordedPercent({ start: -1, end: -1 });
+      } else {
+        await new Promise((resolve, reject) => {
+          Server.sendPostToServer(data, (success) => {
+            if (success) {
+              console.log("✅ Post created successfully");
+              alert("Post created successfully!");
+              // reset
+              if (title.current) title.current.value = "";
+              if (textField.current) textField.current.value = "";
+              setPicturesSelected({ start: -1, end: -1 });
+              setRecordedPercent({ start: -1, end: -1 });
+              resolve();
+            } else {
+              reject(new Error("Failed to create post"));
+            }
+          });
+        });
       }
     } catch (error) {
       console.error("Submission error:", error);
@@ -199,13 +215,13 @@ export default function PostMaker({ openPic, setOpenPic, percent, PrevData }) {
               </ToggleButton>
             ))}
           </ButtonGroup>
-          <Button
+          <button
             className="accent-button"
             type="submit"
             disabled={isSubmitting}
           >
             {isSubmitting ? "Submitting..." : "Post"}
-          </Button>
+          </button>
         </Form.Group>
       </Form>
     </div>

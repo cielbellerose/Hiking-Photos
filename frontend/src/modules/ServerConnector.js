@@ -8,14 +8,28 @@ me.serverName = import.meta.env.PROD
 react hook to indicate when done.
 */
 me.sendPostToServer = (postdata, setTrueWhenDone) => {
+  console.log("📤 SERVER - Sending post to server:", postdata);
+  console.log("📤 SERVER - Using serverName:", me.serverName);
+
   fetch(me.serverName + "/api/posts", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
     body: JSON.stringify(postdata),
   })
-    .then(() => {
+    .then((response) => {
+      console.log("📤 SERVER - Response status:", response.status);
+      console.log("📤 SERVER - Response headers:", response.headers);
+      if (!response.ok) {
+        console.error("📤 SERVER - Response not OK:", response.statusText);
+        return response.text().then((text) => {
+          console.error("📤 SERVER - Response body:", text);
+          throw new Error(`HTTP ${response.status}: ${text}`);
+        });
+      }
+
       if (setTrueWhenDone) {
+        console.log("📤 SERVER - Calling setTrueWhenDone callback");
         setTrueWhenDone(true);
       }
     })

@@ -81,21 +81,20 @@ export default function UploadPhotosModal({ onPhotoUploaded }) {
           {file && <p className={styles.selected}>Selected: {file.name}</p>}
         </Modal.Body>
         <Modal.Footer>
-          <Button
-            variant="secondary"
+          <button
+            className="secondary-button"
             onClick={handleClose}
             disabled={uploading}
-            className={styles.cancelButton}
           >
             Close
-          </Button>
-          <Button
+          </button>
+          <button
             className="accent-button"
             onClick={handleUpload}
             disabled={!file || uploading}
           >
             {uploading ? "Uploading..." : "Upload Photo"}
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
     </>

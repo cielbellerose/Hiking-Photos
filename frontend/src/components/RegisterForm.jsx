@@ -67,6 +67,11 @@ export default function RegisterForm({ onLoginSelection }) {
             className="secondary-button"
             onClick={onLoginSelection}
             disabled={loading}
+            style={{
+              padding: "10px",
+              margin: "10px 0px",
+              fontSize: "18px",
+            }}
           >
             Go to Login
           </button>

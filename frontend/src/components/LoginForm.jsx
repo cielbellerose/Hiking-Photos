@@ -57,7 +57,15 @@ export default function LoginForm({ onSignupSelection }) {
           />
         </form>
         <div>
-          <button className="secondary-button" onClick={onSignupSelection}>
+          <button
+            className="secondary-button"
+            onClick={onSignupSelection}
+            style={{
+              padding: "10px",
+              margin: "10px 0px",
+              fontSize: "18px",
+            }}
+          >
             Sign Up
           </button>
         </div>

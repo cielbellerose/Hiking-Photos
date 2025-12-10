@@ -46,7 +46,6 @@ export default function UploadPhotosPage() {
         <h1>Appalachian Stories</h1>
 
         <div className="contentContainer">
-          {/* Show upload button only if user is logged in */}
           {currentUser ? (
             <>
               <UploadPhotosModal onPhotoUploaded={handlePhotoUploaded} />

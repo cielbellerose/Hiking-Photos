@@ -17,23 +17,34 @@ PicturesRouter.get("/", async (req, res) => {
   const { user, p1, p2 } = req.query;
   try {
     const data = await getPicturesForPosts(user, p1, p2);
+    console.log(
+      "DEBUG - Original data URLs:",
+      data.map((d) => d.url)
+    );
     const baseURL =
       process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`;
+    console.log("DEBUG - Using baseURL:", baseURL);
     const dataWithFixedUrls = data.map((photo) => {
       if (
         photo.url &&
         (photo.url.startsWith("http") || photo.url.startsWith("/"))
       ) {
+        console.log("DEBUG - Already has valid URL:", photo.url);
         return photo;
       }
       const filename =
         photo.filename || photo.url?.split("/").pop() || `photo_${photo._id}`;
+      const newUrl = `${baseURL}/user_data/${filename}`;
+      console.log("DEBUG - Fixed URL from:", photo.url, "to:", newUrl);
       return {
         ...photo,
-        url: `${baseURL}/user_data/${filename}`,
+        url: newUrl,
       };
     });
-
+    console.log(
+      "DEBUG - Final URLs:",
+      dataWithFixedUrls.map((d) => d.url)
+    );
     res.json(dataWithFixedUrls);
   } catch (error) {
     console.error("Error getting pictures:", error);

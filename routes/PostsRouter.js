@@ -4,8 +4,21 @@ import { addPost, deletePost, getPosts, updatePost } from "../models/posts.js";
 const PostsRouter = express.Router();
 
 PostsRouter.post("/", (req, res) => {
+  console.log("📨 POSTS ROUTE - Received request");
+  console.log("📨 POSTS ROUTE - Request body:", req.body);
+  console.log("📨 POSTS ROUTE - User authenticated?", req.isAuthenticated());
+  console.log("📨 POSTS ROUTE - User:", req.user);
   console.log(req.body);
   const data = req.body;
+  if (!req.isAuthenticated()) {
+    console.log("❌ POSTS ROUTE - User not authenticated");
+    return res.status(401).json({ error: "Not authenticated" });
+  }
+  if (!data.user && req.user) {
+    data.user = req.user.username || req.user._id;
+    console.log("📨 POSTS ROUTE - Added user to data:", data.user);
+  }
+  console.log("📨 POSTS ROUTE - Final data being saved:", data);
   addPost(data);
   res.sendStatus(200);
 });
