@@ -77,13 +77,10 @@ function TrailNavbar() {
               className={styles.navLink}
               onClick={handlePostsClick}
             >
-              Posts
+              View
             </Nav.Link>
             <Nav.Link href="/new" className={styles.navLink}>
               New
-            </Nav.Link>
-            <Nav.Link href="/view" className={styles.navLink}>
-              View
             </Nav.Link>
           </Nav>
           <Nav>

@@ -4,8 +4,9 @@ import { useEffect } from "react";
 import TrailNavbar from "../components/Navbar.jsx";
 import Post from "../components/Post.jsx";
 import userModule from "../modules/user.js";
-import { Button, Container, Alert, Spinner } from "react-bootstrap";
+import { Button, Alert, Spinner } from "react-bootstrap";
 import Server from "../modules/ServerConnector.js";
+import Map from "../components/Map.jsx";
 
 export default function PostListPage() {
   const { user } = useParams();
@@ -78,9 +79,11 @@ export default function PostListPage() {
               <Map
                 url={url}
                 percent={percent}
-                setCurrentPercent={setCurrentPercent}
+                setCurrentPercent={(v) => setCurrentPercent(v)}
                 openPic={openPic}
-                setOpenPic={setOpenPic}
+                setOpenPic={(v) => {
+                  setOpenPic(v);
+                }}
               />
             )}
           </div>
