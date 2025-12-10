@@ -10,6 +10,7 @@ export default function Map({ url, openPic, setOpenPic, setCurrentPercent }) {
 
   //convert the data in the JSON to real things on the page
   const processJson = (json) => {
+    // console.log(json);
     const convertertedCooodinates = json.map((data) => {
       const onMap = {};
       const length = trail.current.getTotalLength();
@@ -19,17 +20,7 @@ export default function Map({ url, openPic, setOpenPic, setCurrentPercent }) {
       onMap.X = point.x;
       onMap.Y = point.y;
       onMap.ID = data._id;
-
-      let imageUrl = data.url;
-      if (
-        imageUrl &&
-        !imageUrl.startsWith("http") &&
-        !imageUrl.startsWith("/")
-      ) {
-        imageUrl = `/user_data/${imageUrl}`;
-      }
-
-      onMap.url = imageUrl;
+      onMap.url = data.url;
       onMap.percent = data.percent;
       return onMap;
     });
@@ -54,8 +45,9 @@ export default function Map({ url, openPic, setOpenPic, setCurrentPercent }) {
 
   const scale = 0.908;
   return (
+    //709.549 3355.049"
     <div className="map">
-      <img ref={mapImg} src={map} alt={`Map of the Appalachian Trail`}></img>
+      <img ref={mapImg} src={map}></img>
       <svg viewBox={`0 0 ${700.549 * scale} ${3652.86 * scale}`}>
         {mapDots.map((dot) => (
           <MapImageDot
