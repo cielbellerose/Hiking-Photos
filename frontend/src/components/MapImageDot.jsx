@@ -1,28 +1,39 @@
-/*This is a dot that positions itself on the map It takes an X and Y position to place
-itself. It's also passed an Onclick to handle opening and closing the picture that's
-attatched to it
-*/
 export default function MapImageDot({ X, Y, onClick, url, myID, openID }) {
-  //console.log(X,Y,url);
   const dotStyle = {
-    postition: "Absolute",
     cx: X,
     cy: Y,
   };
+
+  // ensure full url
+  const getValidUrl = () => {
+    if (!url) return null;
+    if (url.startsWith("http") || url.startsWith("/")) {
+      return url;
+    }
+    return `/user_data/${url}`;
+  };
+
+  const validUrl = getValidUrl();
   const pictureStyle = {
-    top: Y,
-    left: X,
+    position: "absolute",
+    top: `${Y}px`,
+    left: `${X}px`,
+    transform: "translate(-50%, -100%)",
+    zIndex: 10,
   };
 
   return (
     <>
       <circle className="Dot" style={dotStyle} onClick={onClick} />
-      {myID === openID ? (
+      {myID === openID && validUrl && (
         <foreignObject>
-          <img style={pictureStyle} src={url} className="photos"></img>
+          <img
+            style={pictureStyle}
+            src={validUrl}
+            className="photos"
+            alt="Trail photo"
+          />
         </foreignObject>
-      ) : (
-        <div></div>
       )}
     </>
   );

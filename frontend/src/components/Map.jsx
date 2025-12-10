@@ -19,7 +19,17 @@ export default function Map({ url, openPic, setOpenPic, setCurrentPercent }) {
       onMap.X = point.x;
       onMap.Y = point.y;
       onMap.ID = data._id;
-      onMap.url = data.url;
+
+      let imageUrl = data.url;
+      if (
+        imageUrl &&
+        !imageUrl.startsWith("http") &&
+        !imageUrl.startsWith("/")
+      ) {
+        imageUrl = `/user_data/${imageUrl}`;
+      }
+
+      onMap.url = imageUrl;
       onMap.percent = data.percent;
       return onMap;
     });

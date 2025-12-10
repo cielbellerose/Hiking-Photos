@@ -17,7 +17,24 @@ PicturesRouter.get("/", async (req, res) => {
   const { user, p1, p2 } = req.query;
   try {
     const data = await getPicturesForPosts(user, p1, p2);
-    res.json(data);
+    const baseURL =
+      process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`;
+    const dataWithFixedUrls = data.map((photo) => {
+      if (
+        photo.url &&
+        (photo.url.startsWith("http") || photo.url.startsWith("/"))
+      ) {
+        return photo;
+      }
+      const filename =
+        photo.filename || photo.url?.split("/").pop() || `photo_${photo._id}`;
+      return {
+        ...photo,
+        url: `${baseURL}/user_data/${filename}`,
+      };
+    });
+
+    res.json(dataWithFixedUrls);
   } catch (error) {
     console.error("Error getting pictures:", error);
     res.status(500).json({ error: "Error getting pictures" });
@@ -82,7 +99,7 @@ PicturesRouter.post("/upload", async (req, res) => {
   }
 });
 
-async function getEXIFdata(filePath, filename, username, baseURL) {
+async function getEXIFdata(filePath, filename, username) {
   try {
     const { latitude, longitude } = await exifr.gps(filePath);
     const percentage = mappify.calculatePercentage(latitude, longitude);
@@ -90,7 +107,8 @@ async function getEXIFdata(filePath, filename, username, baseURL) {
       lat: latitude,
       lon: longitude,
       percent: percentage * 100,
-      url: `${baseURL}/user_data/${filename}`,
+      url: `/user_data/${filename}`,
+      filename: filename,
       user: username,
     };
     console.log("storing photo", data);
@@ -108,11 +126,13 @@ PicturesRouter.get("/user/:username", async (req, res) => {
 
     const photos = await getUserPhotos(username);
 
-    const filenames = photos.map(
-      (photo) => photo.filename || photo.url?.split("/").pop()
-    );
+    const photosWithUrls = photos.map((photo) => ({
+      filename: photo.filename || photo.url?.split("/").pop(),
+      url: photo.url,
+      ...photo,
+    }));
 
-    res.json(filenames);
+    res.json(photosWithUrls);
   } catch (error) {
     console.error("Error fetching user photos:", error);
     res.status(500).json({ error: error.message });

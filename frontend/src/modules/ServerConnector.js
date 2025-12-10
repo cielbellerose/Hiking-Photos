@@ -2,7 +2,7 @@ const me = {};
 
 me.serverName = import.meta.env.PROD
   ? "https://appalachian-stories.onrender.com"
-  : "http://localhost:3000";
+  : "http://localhost:10000";
 
 /* Allows sending a post update. Takes JSON postdata, as well as an optional
 react hook to indicate when done.

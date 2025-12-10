@@ -31,9 +31,9 @@ export default function UploadPhotosPage() {
     loadPhotos();
   }, []);
 
-  const handlePhotoUploaded = (filename) => {
+  const handlePhotoUploaded = (uploadResult) => {
     try {
-      setPhotos([...photos, filename]);
+      setPhotos([...photos, uploadResult]);
     } catch (error) {
       console.error("Failed to update photos after upload:", error);
     }
@@ -63,7 +63,10 @@ export default function UploadPhotosPage() {
                       <div key={index} className="col-md-4 col-lg-3 mb-3">
                         <div className="card">
                           <img
-                            src={`/user_data/${photo}`}
+                            src={
+                              photo.url ||
+                              `/user_data/${photo.filename || photo}`
+                            }
                             alt={`Trail photo ${index + 1}`}
                             className="card-img-top"
                             style={{ height: "200px", objectFit: "cover" }}
