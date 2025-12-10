@@ -16,9 +16,8 @@ export default function RegisterForm({ onLoginSelection }) {
     setLoading(true);
 
     try {
-      const data = await Server.signupUser(username, password);
+      await Server.signupUser(username, password);
       toast.success("Account created successfully!");
-      console.log("Signup successful", data);
 
       setUsername("");
       setPassword("");

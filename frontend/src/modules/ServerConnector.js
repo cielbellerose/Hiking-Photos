@@ -8,9 +8,6 @@ me.serverName = import.meta.env.PROD
 react hook to indicate when done.
 */
 me.sendPostToServer = (postdata, setTrueWhenDone) => {
-  console.log("📤 SERVER - Sending post to server:", postdata);
-  console.log("📤 SERVER - Using serverName:", me.serverName);
-
   fetch(me.serverName + "/api/posts", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -18,8 +15,6 @@ me.sendPostToServer = (postdata, setTrueWhenDone) => {
     body: JSON.stringify(postdata),
   })
     .then((response) => {
-      console.log("📤 SERVER - Response status:", response.status);
-      console.log("📤 SERVER - Response headers:", response.headers);
       if (!response.ok) {
         console.error("📤 SERVER - Response not OK:", response.statusText);
         return response.text().then((text) => {
@@ -29,7 +24,6 @@ me.sendPostToServer = (postdata, setTrueWhenDone) => {
       }
 
       if (setTrueWhenDone) {
-        console.log("📤 SERVER - Calling setTrueWhenDone callback");
         setTrueWhenDone(true);
       }
     })
@@ -229,13 +223,9 @@ me.uploadPicture = async (formData) => {
 
 me.getUserPhotos = async (userId) => {
   try {
-    console.log("Getting ALL photos for user:", userId);
-
     const response = await fetch(`${me.serverName}/api/pic/user/${userId}`, {
       credentials: "include",
     });
-
-    console.log("Response status:", response.status);
 
     if (!response.ok) {
       const error = await response.json();
@@ -243,7 +233,6 @@ me.getUserPhotos = async (userId) => {
     }
 
     const data = await response.json();
-    console.log("Photos received:", data.length, "photos");
 
     return data;
   } catch (error) {

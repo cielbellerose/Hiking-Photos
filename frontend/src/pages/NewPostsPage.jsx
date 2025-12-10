@@ -30,7 +30,6 @@ export default function NewPostsPage() {
   }, []);
 
   const url = ServerConnector.getURLforMap(user, 0, 100); //format the query appropriately
-  console.log("posts for ", user, url);
 
   return (
     <>

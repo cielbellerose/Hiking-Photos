@@ -16,12 +16,8 @@ export default function LoginForm({ onSignupSelection }) {
 
     setLoading(true);
     try {
-      console.log("Sending login request to:", "/api/auth/login");
-
-      const data = await Server.loginUser(username, password);
-
+      await Server.loginUser(username, password);
       toast.success("Login successful!");
-      console.log("Login successful", data);
       navigate("/"); // switch to edit trail page after successful login
     } catch (error) {
       toast.error("Error logging in");

@@ -2,8 +2,6 @@ import { getDB } from "../db/connection.js";
 
 export const addPicture = async (pictureData) => {
   try {
-    console.log("ADD PICTURE - Saving:", pictureData);
-
     const db = await getDB();
 
     // Add timestamp
@@ -17,7 +15,6 @@ export const addPicture = async (pictureData) => {
       .collection("user-pictures")
       .insertOne(dataWithTimestamp);
 
-    console.log("ADD PICTURE - Saved with ID:", result.insertedId);
     return result.insertedId;
   } catch (err) {
     console.error("Error adding picture:", err);
@@ -64,16 +61,12 @@ export const getPicturesForPosts = async (userID, percent1, percent2) => {
 
 export const getUserPhotos = async (username) => {
   try {
-    console.log("Get photos for user:", username);
-
     const db = await getDB();
     const photos = await db
       .collection("user-pictures")
       .find({ user: username })
       .sort({ uploadedAt: -1 }) // newest first
       .toArray();
-
-    console.log("User photos found:", photos.length, "photos");
     return photos;
   } catch (err) {
     console.error("Error fetching user photos:", err);

@@ -22,7 +22,6 @@ export default function UploadPhotosModal({ onPhotoUploaded }) {
     const selectedFile = e.target.files[0];
     if (!selectedFile) return;
 
-    console.log("Handle file change:", selectedFile);
     setFile(selectedFile);
   };
 
@@ -32,11 +31,9 @@ export default function UploadPhotosModal({ onPhotoUploaded }) {
       return;
     }
     setUploading(true);
-    console.log("File to upload:", file);
     try {
       const formData = new FormData();
       formData.append("photo", file);
-      console.log("About to fetch...");
 
       const data = await Server.uploadPicture(formData);
       toast.success("Upload successful!");
@@ -44,7 +41,6 @@ export default function UploadPhotosModal({ onPhotoUploaded }) {
       onPhotoUploaded(data.filename);
       handleClose();
     } catch (error) {
-      console.log("Caught error:", error);
       toast.error("Upload failed");
       console.error(error);
     } finally {

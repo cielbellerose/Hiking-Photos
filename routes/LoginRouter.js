@@ -7,8 +7,6 @@ import { getDB } from "../db/connection.js";
 const loginRouter = express.Router();
 
 loginRouter.post("/login", (req, res, next) => {
-  console.log("LOGIN: Starting login for:", req.body.username);
-
   passport.authenticate("local", (err, user, info) => {
     if (err) {
       console.error("Passport auth error:", err);
@@ -18,21 +16,11 @@ loginRouter.post("/login", (req, res, next) => {
       return res.status(401).json({ error: info?.message || "Login failed" });
     }
 
-    console.log("LOGIN: Calling req.login() for user:", user.username);
-
     req.login(user, (loginErr) => {
       if (loginErr) {
         console.error("Login error:", loginErr);
         return res.status(500).json({ error: "Session error" });
       }
-      console.log("LOGIN: req.login() successful");
-      console.log("LOGIN: Session ID after login:", req.sessionID);
-      console.log("LOGIN: Session:", req.session);
-
-      console.log(
-        "LOGIN: Cookie header that will be sent:",
-        res.getHeaders()["set-cookie"]
-      );
 
       res.json({
         success: true,
@@ -46,7 +34,6 @@ loginRouter.post("/login", (req, res, next) => {
 });
 
 loginRouter.post("/signup", async (req, res) => {
-  console.log("hit api/auth/signup");
   try {
     const { username, password } = req.body;
 
@@ -90,7 +77,6 @@ loginRouter.post("/signup", async (req, res) => {
 });
 
 loginRouter.get("/current_user", (req, res) => {
-  console.log("hit api/auth/current_user");
   if (req.isAuthenticated()) {
     const userResponse = { ...req.user };
     delete userResponse.passwordHash;
@@ -105,7 +91,6 @@ loginRouter.get("/current_user", (req, res) => {
 });
 
 loginRouter.post("/logout", (req, res) => {
-  console.log("hit api/auth/logout");
   req.logout((error) => {
     if (error) {
       console.error("Logout error:", error);
@@ -119,7 +104,6 @@ loginRouter.post("/logout", (req, res) => {
 });
 
 loginRouter.put("/update-profile", async (req, res) => {
-  console.log("hit api/auth/update_profile");
 
   if (!req.isAuthenticated()) {
     return res.status(401).json({ error: "User not logged in" });
@@ -130,7 +114,6 @@ loginRouter.put("/update-profile", async (req, res) => {
     // save inputs and remove whitespace
     username = username?.trim() || null;
     password = password?.trim() || null;
-    console.log("currentName", username);
 
     if (!username && !password) {
       return res
@@ -178,7 +161,6 @@ loginRouter.put("/update-profile", async (req, res) => {
 });
 
 loginRouter.delete("/delete-profile", async (req, res) => {
-  console.log("hit api/auth/delete-profile");
 
   if (!req.isAuthenticated()) {
     return res.status(401).json({ error: "User not logged in" });

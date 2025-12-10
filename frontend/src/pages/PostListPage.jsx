@@ -24,25 +24,19 @@ export default function PostListPage() {
       try {
         setLoading(true);
         setError(null);
-        console.log("🔍 POST LIST - Starting fetch");
 
         const userData = await userModule.getCurrentUser();
-        console.log("🔍 POST LIST - Current user:", userData);
         setCurrentUser(userData);
 
         if (!userData) {
-          console.log("🔍 POST LIST - No user data, not fetching posts");
           setError("Please log in to view posts");
           return;
         }
         const targetUser =
           user || userData.username || userData.id || userData._id;
-        console.log("🔍 POST LIST - Fetching posts for user:", targetUser);
 
         // fetch posts for user
         const postsData = await Server.getPostsForUser(targetUser);
-        console.log("🔍 POST LIST - Raw posts data:", postsData);
-      console.log("🔍 POST LIST - Number of posts:", postsData.d?.length || postsData.posts?.length || postsData.length || 0);
         setPosts(postsData.d || postsData.posts || postsData);
 
         const urlgot = await Server.getURLforMap(targetUser, 0, 100);

@@ -18,7 +18,6 @@ function TrailNavbar() {
     async function checkLogin() {
       try {
         const userData = await Server.getCurrentUser();
-        console.log("Current user data:", userData);
         if (userData && userData.authenticated) {
           setUsername(userData.username || userData.user?.username);
         } else {

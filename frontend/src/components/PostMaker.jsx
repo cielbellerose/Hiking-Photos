@@ -64,7 +64,6 @@ export default function PostMaker({ openPic, setOpenPic, percent, PrevData }) {
       end: picturesSelected.end,
       user: currentUser.username || currentUser.user?.username,
     };
-    console.log("submission data", data);
 
     if (!data.title.trim()) {
       showError("Title is required");
@@ -87,7 +86,6 @@ export default function PostMaker({ openPic, setOpenPic, percent, PrevData }) {
       if (PrevData) {
         data._id = PrevData._id;
         await Server.updatePost(data);
-        console.log("✅ Post updated successfully");
         alert("Post updated successfully!");
         // reset
         if (title.current) title.current.value = "";
@@ -98,7 +96,6 @@ export default function PostMaker({ openPic, setOpenPic, percent, PrevData }) {
         await new Promise((resolve, reject) => {
           Server.sendPostToServer(data, (success) => {
             if (success) {
-              console.log("✅ Post created successfully");
               alert("Post created successfully!");
               // reset
               if (title.current) title.current.value = "";
@@ -144,7 +141,6 @@ export default function PostMaker({ openPic, setOpenPic, percent, PrevData }) {
         start: PrevData.Percent1,
         end: PrevData.Percent2,
       });
-      console.log(recordedPercent);
     }
   }, [PrevData]);
 

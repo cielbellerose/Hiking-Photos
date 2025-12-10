@@ -17,34 +17,23 @@ PicturesRouter.get("/", async (req, res) => {
   const { user, p1, p2 } = req.query;
   try {
     const data = await getPicturesForPosts(user, p1, p2);
-    console.log(
-      "DEBUG - Original data URLs:",
-      data.map((d) => d.url)
-    );
     const baseURL =
       process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`;
-    console.log("DEBUG - Using baseURL:", baseURL);
     const dataWithFixedUrls = data.map((photo) => {
       if (
         photo.url &&
         (photo.url.startsWith("http") || photo.url.startsWith("/"))
       ) {
-        console.log("DEBUG - Already has valid URL:", photo.url);
         return photo;
       }
       const filename =
         photo.filename || photo.url?.split("/").pop() || `photo_${photo._id}`;
       const newUrl = `${baseURL}/user_data/${filename}`;
-      console.log("DEBUG - Fixed URL from:", photo.url, "to:", newUrl);
       return {
         ...photo,
         url: newUrl,
       };
     });
-    console.log(
-      "DEBUG - Final URLs:",
-      dataWithFixedUrls.map((d) => d.url)
-    );
     res.json(dataWithFixedUrls);
   } catch (error) {
     console.error("Error getting pictures:", error);
@@ -53,8 +42,6 @@ PicturesRouter.get("/", async (req, res) => {
 });
 
 PicturesRouter.post("/upload", async (req, res) => {
-  console.log("UPLOAD ROUTE HIT!");
-
   if (!req.isAuthenticated()) {
     return res.status(401).json({ error: "Not logged in" });
   }
@@ -89,7 +76,6 @@ PicturesRouter.post("/upload", async (req, res) => {
 
       try {
         await fs.promises.rename(file.filepath, newPath);
-        console.log("File saved successfully:", cleanFilename);
 
         await getEXIFdata(newPath, cleanFilename, username, baseURL);
 
@@ -122,7 +108,6 @@ async function getEXIFdata(filePath, filename, username) {
       filename: filename,
       user: username,
     };
-    console.log("storing photo", data);
     await addPicture(data);
   } catch (error) {
     console.error("Error processing EXIF data:", error);
@@ -133,8 +118,6 @@ async function getEXIFdata(filePath, filename, username) {
 PicturesRouter.get("/user/:username", async (req, res) => {
   try {
     const { username } = req.params;
-    console.log("GET ALL photos for user:", username);
-
     const photos = await getUserPhotos(username);
 
     const photosWithUrls = photos.map((photo) => ({
