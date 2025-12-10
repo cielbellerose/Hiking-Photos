@@ -30,7 +30,8 @@ This assignment built off of previous Hiking-Stories, implementing custom font, 
 
 <img width="1439" height="729" alt="Screenshot 2025-12-09 at 11 37 47 PM" src="https://github.com/user-attachments/assets/adb5ac46-30dd-4ba0-9811-91fabacf6f49" />
 
-<img width="1148" height="738" alt="Screenshot 2025-12-09 at 11 39 04 PM" src="https://github.com/user-attachments/assets/5ebadac9-3327-40fe-b50a-d6af25e7d37c" />
+<img width="927" height="501" alt="Screenshot 2025-12-10 at 12 29 06 AM" src="https://github.com/user-attachments/assets/20ef25fc-894c-4b5a-8365-174b59127b9a" />
+
 
 ## Technologies Used 
 - HTML5
