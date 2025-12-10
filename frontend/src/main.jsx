@@ -6,7 +6,6 @@ import { Toaster } from "react-hot-toast";
 import NewPostsPage from "./pages/NewPostsPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import UploadPhotosPage from "./pages/UploadPhotosPage.jsx";
-import PresentationPage from "./pages/PresentationPage.jsx";
 import PostListPage from "./pages/PostListPage.jsx";
 
 import "../index.css";

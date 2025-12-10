@@ -1,4 +1,3 @@
-// components/EditProfileForm.jsx
 import { useState } from "react";
 import styles from "../css/ProfileForm.module.css";
 import toast from "react-hot-toast";

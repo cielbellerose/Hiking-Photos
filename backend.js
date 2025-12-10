@@ -73,39 +73,6 @@ app.use("/api/auth", LoginRouter);
 app.use("/api/posts", PostsRouter);
 app.use("/api/pic", PicturesRouter);
 
-// TEST remove later
-app.get("/api/debug/users", async (req, res) => {
-  try {
-    const testUser = await findUserByUsername("testuser");
-    const allUsers = await getAllUsers();
-
-    res.json({
-      testUser,
-      allUsers,
-      userCount: allUsers.length,
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-app.get("/api/debug/auth", (req, res) => {
-  console.log("=== AUTH DEBUG ===");
-  console.log("Session ID:", req.sessionID);
-  console.log("Is authenticated:", req.isAuthenticated());
-  console.log("User:", req.user);
-  console.log("Cookies:", req.headers.cookie);
-  console.log("NODE_ENV:", process.env.NODE_ENV);
-
-  res.json({
-    sessionID: req.sessionID,
-    authenticated: req.isAuthenticated(),
-    user: req.user,
-    cookiePresent: !!req.headers.cookie,
-    nodeEnv: process.env.NODE_ENV,
-    secureCookie: process.env.NODE_ENV === "production",
-  });
-});
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
@@ -114,6 +81,7 @@ app.use((req, res, next) => {
   next();
 });
 
+// TESTS
 app.get("/api/test-cookie", (req, res) => {
   res.cookie("testcookie", "working", {
     secure: true,

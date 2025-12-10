@@ -3,20 +3,13 @@ import mappify from "../modules/mappify";
 import MapImageDot from "./MapImageDot";
 import { useRef, useEffect, useState } from "react";
 
-export default function Map({
-  url,
-  openPic,
-  setOpenPic,
-  setCurrentPercent,
-}) {
+export default function Map({ url, openPic, setOpenPic, setCurrentPercent }) {
   const [mapDots, setMapDots] = useState([]);
   const mapImg = useRef(null);
   const trail = useRef(null);
-  //console.log("Starting Map componant for url", url);
 
   //convert the data in the JSON to real things on the page
   const processJson = (json) => {
-    // console.log(json);
     const convertertedCooodinates = json.map((data) => {
       const onMap = {};
       const length = trail.current.getTotalLength();
@@ -30,9 +23,7 @@ export default function Map({
       onMap.percent = data.percent;
       return onMap;
     });
-    // console.log(convertertedCooodinates);
     setMapDots(convertertedCooodinates);
-    //console.log(json.staticTestCoodinates)
   };
   //getAPIitems from URL
   useEffect(() => {
@@ -57,7 +48,6 @@ export default function Map({
     <div className="map">
       <img ref={mapImg} src={map}></img>
       <svg viewBox={`0 0 ${700.549 * scale} ${3652.86 * scale}`}>
-        {/* <MapImageDot ID={1} X={200} Y={20} onClick={()=>{}}/> */}
         {mapDots.map((dot) => (
           <MapImageDot
             openID={openPic}
