@@ -175,6 +175,7 @@ export default function PostMaker({ openPic, setOpenPic, percent, PrevData }) {
   return (
     <div className="PostForm">
       <Form onSubmit={handleSubmit}>
+        <h3> Create New Post </h3>
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
           <Form.Control
             as="textarea"
@@ -185,6 +186,12 @@ export default function PostMaker({ openPic, setOpenPic, percent, PrevData }) {
             ref={title}
             required
             disabled={isSubmitting}
+            style={{
+              backgroundColor: "var(--background2)",
+              borderRadius: "8px",
+              color: "var(--text)",
+              outline: "none",
+            }}
           />
           <Form.Control
             as="textarea"
@@ -215,6 +222,12 @@ export default function PostMaker({ openPic, setOpenPic, percent, PrevData }) {
             className="accent-button"
             type="submit"
             disabled={isSubmitting}
+            style={{
+              padding: "8px 16px",
+              fontSize: "16px",
+              height: "36px",
+              minHeight: "36px",
+            }}
           >
             {isSubmitting ? "Submitting..." : "Post"}
           </button>

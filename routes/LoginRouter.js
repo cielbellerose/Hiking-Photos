@@ -104,7 +104,6 @@ loginRouter.post("/logout", (req, res) => {
 });
 
 loginRouter.put("/update-profile", async (req, res) => {
-
   if (!req.isAuthenticated()) {
     return res.status(401).json({ error: "User not logged in" });
   }
@@ -161,7 +160,6 @@ loginRouter.put("/update-profile", async (req, res) => {
 });
 
 loginRouter.delete("/delete-profile", async (req, res) => {
-
   if (!req.isAuthenticated()) {
     return res.status(401).json({ error: "User not logged in" });
   }

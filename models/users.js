@@ -6,7 +6,6 @@ export const createUser = async (username, password) => {
   try {
     const db = await getDB();
     const passwordHash = await bcrypt.hash(password, 10);
-
     const user = {
       username,
       passwordHash,

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import styles from "../css/Modal.module.css";
 import toast from "react-hot-toast";
 import Server from "../modules/ServerConnector.js";

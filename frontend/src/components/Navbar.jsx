@@ -37,7 +37,6 @@ function TrailNavbar() {
     try {
       setLoading(true);
       await Server.logoutUser();
-
       setUsername(null);
       navigate("/login");
     } catch (error) {

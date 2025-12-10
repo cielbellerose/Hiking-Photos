@@ -27,20 +27,15 @@ export default function Post({ post, setReloadNeeded }) {
 
           <div className="d-flex gap-2">
             <>
-              <Link
-                state={post}
-                to="/new"
-                className="btn btn-outline-secondary btn-sm"
-              >
+              <Link state={post} to="/new" className="secondary-button">
                 Edit
               </Link>
-              <Button
-                variant="outline-danger"
-                size="sm"
+              <button
+                className="secondary-button"
                 onClick={() => handleDelete(post._id)}
               >
                 Delete
-              </Button>
+              </button>
             </>
           </div>
         </div>

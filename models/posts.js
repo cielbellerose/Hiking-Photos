@@ -5,7 +5,6 @@ export const addPost = async (postData) => {
   try {
     const db = await getDB();
     const result = await db.collection("user-posts").insertOne(postData);
-
     return result.insertedId;
   } catch (err) {
     console.error("Error adding post:", err);

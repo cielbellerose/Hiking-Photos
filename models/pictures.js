@@ -3,14 +3,12 @@ import { getDB } from "../db/connection.js";
 export const addPicture = async (pictureData) => {
   try {
     const db = await getDB();
-
     // Add timestamp
     const dataWithTimestamp = {
       ...pictureData,
       uploadedAt: new Date(),
       filename: pictureData.url?.split("/").pop() || `photo_${Date.now()}.jpg`,
     };
-
     const result = await db
       .collection("user-pictures")
       .insertOne(dataWithTimestamp);

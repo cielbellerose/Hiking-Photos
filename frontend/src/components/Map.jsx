@@ -54,7 +54,6 @@ export default function Map({ url, openPic, setOpenPic, setCurrentPercent }) {
 
   const scale = 0.908;
   return (
-    //709.549 3355.049"
     <div className="map">
       <img ref={mapImg} src={map}></img>
       <svg viewBox={`0 0 ${700.549 * scale} ${3652.86 * scale}`}>

@@ -43,16 +43,15 @@ export default function UploadPhotosPage() {
       <TrailNavbar />
       <div className="container mt-4">
         <h1>Appalachian Stories</h1>
-
+        <h3>Upload your photos taken on the Appalachian Trail!</h3>
         <div className="contentContainer">
           {currentUser ? (
             <>
               <UploadPhotosModal onPhotoUploaded={handlePhotoUploaded} />
-
               {loading ? (
                 <p>Loading photos...</p>
               ) : photos.length === 0 ? (
-                <div className={"mt-3"}>No photos uploaded yet.</div>
+                <div className={"mt-3"}>No photos uploaded.</div>
               ) : (
                 <div className="mt-4">
                   <h3>Your Photos ({photos.length})</h3>
@@ -88,7 +87,7 @@ export default function UploadPhotosPage() {
               )}
             </>
           ) : (
-            <div>Please log in to upload and manage photos.</div>
+            <div>Please log in to upload photos.</div>
           )}
         </div>
       </div>

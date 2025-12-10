@@ -4,19 +4,16 @@ export default function MapImageDot({ X, Y, onClick, url, myID, openID }) {
     cy: Y,
   };
 
-  // ensure full url
+  // check for full url to fix picture loading issues
   const getValidUrl = () => {
     if (!url) return null;
-
     if (url.includes("localhost:10000")) {
       const filename = url.split("/").pop();
       return `/user_data/${filename}`;
     }
-
     if (url.startsWith("http") || url.startsWith("/")) {
       return url;
     }
-
     return `/user_data/${url}`;
   };
 
