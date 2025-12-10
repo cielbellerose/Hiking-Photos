@@ -42,6 +42,11 @@ This assignment built off of previous Hiking-Stories, implementing custom font, 
 - MongoDB
 - ESLint & Prettier
 
+## Google Fonts Used
+- Bitter
+- Raleway
+**Font link:** https://www.fontpair.co/pairings/bitter-raleway
+
 ## Instructions to Build  
 
 ### 1. Clone the Repository  

@@ -27,19 +27,6 @@
   box-shadow: 0 0 0 3px var(--accent);
 }
 
-.cancelButton {
-  margin-left: 10px;
-  border: none;
-  padding: 15px;
-  border-radius: 4px;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.cancelButton:hover {
-  background-color: lightgrey;
-}
-
 .buttonGroup {
   margin-top: 5px;
 }

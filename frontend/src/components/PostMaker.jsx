@@ -174,7 +174,7 @@ export default function PostMaker({ openPic, setOpenPic, percent, PrevData }) {
 
   return (
     <div className="PostForm">
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} style={{backgroundColor: "var(--background)"}}>
         <h3> Create New Post </h3>
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
           <Form.Control
@@ -186,12 +186,6 @@ export default function PostMaker({ openPic, setOpenPic, percent, PrevData }) {
             ref={title}
             required
             disabled={isSubmitting}
-            style={{
-              backgroundColor: "var(--background2)",
-              borderRadius: "8px",
-              color: "var(--text)",
-              outline: "none",
-            }}
           />
           <Form.Control
             as="textarea"
@@ -200,6 +194,7 @@ export default function PostMaker({ openPic, setOpenPic, percent, PrevData }) {
             rows={3}
             ref={textField}
             disabled={isSubmitting}
+            style={{ marginBottom: "10px" }}
           />
           <ButtonGroup className="picture-toggles">
             {radios.map((radio, idx) => (
@@ -223,10 +218,10 @@ export default function PostMaker({ openPic, setOpenPic, percent, PrevData }) {
             type="submit"
             disabled={isSubmitting}
             style={{
-              padding: "8px 16px",
+              padding: "8px 8px",
+              marginLeft: "10px",
               fontSize: "16px",
               height: "36px",
-              minHeight: "36px",
             }}
           >
             {isSubmitting ? "Submitting..." : "Post"}

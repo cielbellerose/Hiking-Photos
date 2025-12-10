@@ -35,7 +35,7 @@ export default function MapImageDot({ X, Y, onClick, url, myID, openID }) {
             style={pictureStyle}
             src={validUrl}
             className="photos"
-            alt="Trail photo"
+            alt="Trail photo taken on Appalachian Trail"
           />
         </foreignObject>
       )}

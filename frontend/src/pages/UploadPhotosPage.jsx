@@ -42,7 +42,6 @@ export default function UploadPhotosPage() {
     <>
       <TrailNavbar />
       <div className="container mt-4">
-        <h1>Appalachian Stories</h1>
         <h3>Upload your photos taken on the Appalachian Trail!</h3>
         <div className="contentContainer">
           {currentUser ? (
@@ -65,7 +64,7 @@ export default function UploadPhotosPage() {
                                 photo.url ||
                                 `/user_data/${photo.filename || photo}`
                               }
-                              alt={`Trail photo ${index + 1}`}
+                              alt={`Trail photo ${index + 1} taken on Appalachian Trail`}
                               className="card-img-top"
                               style={{ height: "200px", objectFit: "cover" }}
                               onError={(e) => {

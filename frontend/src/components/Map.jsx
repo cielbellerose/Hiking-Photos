@@ -55,7 +55,7 @@ export default function Map({ url, openPic, setOpenPic, setCurrentPercent }) {
   const scale = 0.908;
   return (
     <div className="map">
-      <img ref={mapImg} src={map}></img>
+      <img ref={mapImg} src={map} alt={`Map of the Appalachian Trail`}></img>
       <svg viewBox={`0 0 ${700.549 * scale} ${3652.86 * scale}`}>
         {mapDots.map((dot) => (
           <MapImageDot
