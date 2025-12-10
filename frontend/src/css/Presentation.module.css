@@ -1,0 +1,101 @@
+.container {
+  display: flex;
+  gap: 20px;
+  height: calc(100vh - 100px);
+  background-color: var(--background);
+  padding: 20px;
+}
+
+/* Left Column Styles */
+.leftColumn {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Right Column Styles */
+.postsSidebar {
+  position: sticky;
+  top: 3rem;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  background-color: var(--background2);
+  border-color: var(--light-main);
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.sidebarTitle {
+  font-family: var(--font-heading);
+  color: var(--main);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+/* Posts List */
+.postsList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 1rem;
+}
+
+.postItem {
+  background-color: var(--background);
+  border-color: var(--light-main);
+  border-radius: 10px;
+  padding: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.postItem:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border-color: var(--accent);
+}
+
+.selectedPost {
+  background-color: rgba(157, 105, 163, 0.15); /* --accent with transparency */
+  border-color: var(--accent);
+  border-width: 3px;
+}
+
+.postExcerpt {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.5;
+  max-height: 4.2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.9;
+}
+
+.postTrailInfo {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--light-main);
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Loading and Empty States */
+.loadingContainer,
+.noPostsContainer {
+  text-align: center;
+  padding: 20px;
+}
+
+.loadingContainer p {
+  color: var(--main);
+  font-size: 1rem;
+}
+
+.noPostsContainer {
+  color: var(--text);
+}
