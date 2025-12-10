@@ -38,7 +38,7 @@ export default function RegisterForm({ onLoginSelection }) {
         <form className={styles.form} onSubmit={handleSubmitForm}>
           <input
             type="text"
-            placeholder="Username"
+            placeholder="New Username"
             className={styles.input}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -47,7 +47,7 @@ export default function RegisterForm({ onLoginSelection }) {
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder="New Password"
             className={styles.input}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
