@@ -81,7 +81,7 @@ npm start
 ```
 
 ## Video Demonstration
-https://drive.google.com/file/d/137JU5z0xVe6sGb5lFHf-ULCqn6oUDAbk/view?usp=drive_link
+https://www.loom.com/share/adb72cda90e24a6ba762799500b16892
 
 ## Slides
 https://docs.google.com/presentation/d/1gIlv4LPatJoGxkjfmHt9AVMDwJ4xyY2SY66zAUPIHsU/edit?usp=sharing
