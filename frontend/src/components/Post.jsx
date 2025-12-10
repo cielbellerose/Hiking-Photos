@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Server from "../modules/ServerConnector";
+import Card from "react-bootstrap/Card";
 
 export default function Post({ post, setReloadNeeded, canModify = true }) {
   function handleDelete(postID) {

@@ -35,6 +35,9 @@ if (!fs.existsSync(userDataDir)) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(express.static(join(__dirname, "./frontend/dist")));
+app.use("/user_data", express.static(join(__dirname, "user_data")));
+
 // Session configuration
 app.use(
   session({
@@ -65,9 +68,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(join(__dirname, "./frontend/dist")));
-app.use("/user_data", express.static(join(__dirname, "user_data")));
-
 app.use("/api/auth", LoginRouter);
 app.use("/api/posts", PostsRouter);
 app.use("/api/pic", PicturesRouter);
@@ -88,6 +88,28 @@ app.get("/api/test-cookie", (req, res) => {
     maxAge: 24 * 60 * 60 * 1000,
   });
   res.json({ message: "Cookie set" });
+});
+
+app.get("/api/debug-file", (req, res) => {
+  const filePath = join(__dirname, "user_data", "PXL_20220906_200234138.jpg");
+
+  fs.access(filePath, fs.constants.R_OK, (err) => {
+    if (err) {
+      res.json({
+        exists: false,
+        error: err.message,
+        path: filePath,
+        cwd: process.cwd(),
+        __dirname: __dirname,
+      });
+    } else {
+      res.json({
+        exists: true,
+        path: filePath,
+        size: fs.statSync(filePath).size,
+      });
+    }
+  });
 });
 
 app.get("/api/test-cookie-set", (req, res) => {
@@ -113,6 +135,15 @@ app.get("/api/test-cookie-check", (req, res) => {
     cookiePresent: !!req.cookies.test_cookie,
     cookiesReceived: req.headers.cookie || "None",
     allCookies: req.cookies,
+  });
+});
+
+app.get("/api/test-static", (req, res) => {
+  res.json({
+    message: "Testing static file access",
+    testImageUrl: "/user_data/PXL_20220906_200234138.jpg",
+    sessionId: req.sessionID,
+    authenticated: req.isAuthenticated(),
   });
 });
 

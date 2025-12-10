@@ -20,6 +20,8 @@ export default function UploadPhotosPage() {
           const username = currentUser.username || currentUser.user?.username;
           console.log("Loading photos for username:", username);
           const photosData = await Server.getUserPhotos(username);
+           console.log("📸 UPLOAD PAGE - Full photos data received:", photosData);
+        console.log("📸 UPLOAD PAGE - Number of photos:", photosData.length);
           setPhotos(photosData);
         }
       } catch (error) {
@@ -58,21 +60,38 @@ export default function UploadPhotosPage() {
                 <div className="mt-4">
                   <h3>Your Photos ({photos.length})</h3>
                   <div className="row">
-                    {photos.map((photo, index) => (
-                      <div key={index} className="col-md-4 col-lg-3 mb-3">
-                        <div className="card">
-                          <img
-                            src={
-                              photo.url ||
-                              `/user_data/${photo.filename || photo}`
-                            }
-                            alt={`Trail photo ${index + 1}`}
-                            className="card-img-top"
-                            style={{ height: "200px", objectFit: "cover" }}
-                          />
+                    {photos.map((photo, index) => {
+                      console.log("📸 Photo data:", photo);
+                      console.log(
+                        "📸 Image src:",
+                        photo.url || `/user_data/${photo.filename || photo}`
+                      );
+
+                      return (
+                        <div key={index} className="col-md-4 col-lg-3 mb-3">
+                          <div className="card">
+                            <img
+                              src={
+                                photo.url ||
+                                `/user_data/${photo.filename || photo}`
+                              }
+                              alt={`Trail photo ${index + 1}`}
+                              className="card-img-top"
+                              style={{ height: "200px", objectFit: "cover" }}
+                              onError={(e) => {
+                                console.error(
+                                  "❌ Image failed to load:",
+                                  e.target.src
+                                );
+                              }}
+                              onLoad={() => {
+                                console.log("✅ Image loaded successfully");
+                              }}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               )}
